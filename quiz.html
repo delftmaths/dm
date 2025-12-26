@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <div id="quiz-container">
+    <h2 id="quiz-title"></h2>
+    <div id="progress"></div>
+
+    <div id="question"></div>
+    <div id="choices"></div>
+
+    <button id="next-btn">Next</button>
+  </div>
+
+  <script src="js/quiz.js"></script>
+</body>
+</html>

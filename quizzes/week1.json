@@ -1,0 +1,22 @@
+{
+  "title": "Week 1 – Linear Maps",
+  "questions": [
+    {
+      "text": "What is the determinant of $\\begin{pmatrix}1 & 2 \\\\ 3 & 4\\end{pmatrix}$?",
+      "choices": ["$-2$", "$2$", "$1$", "$-1$"],
+      "correct": 0,
+      "explanation": "The determinant is $1\\cdot4 - 2\\cdot3 = -2$."
+    },
+    {
+      "text": "Which of the following maps is linear?",
+      "choices": [
+        "$f(x)=x^2$",
+        "$f(x)=3x$",
+        "$f(x)=|x|$",
+        "$f(x)=x+1$"
+      ],
+      "correct": 1,
+      "explanation": "Only $f(x)=3x$ satisfies linearity."
+    }
+  ]
+}
