@@ -1,0 +1,93 @@
+{
+  "title": "Prerequisites: Sets and Functions",
+  "questions": [
+    {
+      "text": "Let $A = \\{1,2,3\\}$ and $B = \\{3,4\\}$. What is $A \\cap B$?",
+      "choices": [
+        "$\\{1,2\\}$",
+        "$\\{3\\}$",
+        "$\\{1,2,3,4\\}$",
+        "$\\emptyset$"
+      ],
+      "correct": 1,
+      "explanation": "The intersection contains exactly the elements common to both sets."
+    },
+    {
+      "text": "Which of the following is equal to $A \\setminus B$?",
+      "choices": [
+        "$A \\cap B$",
+        "$\\{x \\in A : x \\notin B\\}$",
+        "$\\{x \\in B : x \\notin A\\}$",
+        "$A \\cup B$"
+      ],
+      "correct": 1,
+      "explanation": "By definition, $A \\setminus B$ consists of elements in $A$ that are not in $B$."
+    },
+    {
+      "text": "Let $f : \\mathbb{R} \\to \\mathbb{R}$ be defined by $f(x)=x^2$. Which statement is true?",
+      "choices": [
+        "$f$ is injective",
+        "$f$ is surjective",
+        "$f$ is bijective",
+        "$f$ is neither injective nor surjective"
+      ],
+      "correct": 3,
+      "explanation": "Since $f(1)=f(-1)$, $f$ is not injective, and negative numbers are not in the image."
+    },
+    {
+      "text": "Which of the following sets is a subset of $\\{1,2,3\\}$?",
+      "choices": [
+        "$\\{2,4\\}$",
+        "$\\{1,3\\}$",
+        "$\\{0,1\\}$",
+        "$\\{1,2,3,4\\}$"
+      ],
+      "correct": 1,
+      "explanation": "All elements of $\\{1,3\\}$ belong to $\\{1,2,3\\}$."
+    },
+    {
+      "text": "Which of the following is the union of the sets $A$ and $B$?",
+      "choices": [
+        "$\\{x : x \\in A \\text{ and } x \\in B\\}$",
+        "$\\{x : x \\in A \\text{ or } x \\in B\\}$",
+        "$\\{x : x \\notin A \\}$",
+        "$\\{x : x \\in A \\text{ and } x \\notin B\\}$"
+      ],
+      "correct": 1,
+      "explanation": "The union $A \\cup B$ contains all elements that are in $A$ or in $B$."
+    },
+    {
+      "text": "Which of the following best describes a function $f : A \\to B$?",
+      "choices": [
+        "Each element of $B$ is mapped to exactly one element of $A$",
+        "Each element of $A$ is mapped to at least one element of $B$",
+        "Each element of $A$ is mapped to exactly one element of $B$",
+        "Each element of $B$ is mapped to at most one element of $A$"
+      ],
+      "correct": 2,
+      "explanation": "By definition, a function assigns to each element of the domain exactly one element of the codomain."
+    },
+    {
+      "text": "Which of the following functions is injective?",
+      "choices": [
+        "$f(x)=x^2$ on $\\mathbb{R}$",
+        "$f(x)=x^3$ on $\\mathbb{R}$",
+        "$f(x)=x^2$ on $\\mathbb{R}_{\\ge 0}$",
+        "$f(x)=|x|$ on $\\mathbb{R}$"
+      ],
+      "correct": 1,
+      "explanation": "The function $f(x)=x^3$ is strictly increasing on $\\mathbb{R}$ and therefore injective."
+    },
+    {
+      "text": "Let $A=\\{1,2,3\\}$. How many elements does $\\mathcal{P}(A)$ have?",
+      "choices": [
+        "$3$",
+        "$6$",
+        "$8$",
+        "$9$"
+      ],
+      "correct": 2,
+      "explanation": "A set with $n$ elements has $2^n$ subsets; here $2^3=8$."
+    }
+  ]
+}
