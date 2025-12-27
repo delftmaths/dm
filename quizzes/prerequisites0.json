@@ -1,0 +1,104 @@
+{
+  "title": "Prerequisites: Divisibility and Modular Arithmetic",
+  "questions": [
+    {
+      "text": "Which of the following statements is true?",
+      "choices": [
+        "$3$ divides $10$",
+        "$4$ divides $16$",
+        "$5$ divides $12$",
+        "$6$ divides $35$"
+      ],
+      "correct": 1,
+      "explanation": "$4$ divides $16$ because $16 = 4 \\cdot 4$. None of the other numbers divide the given integers."
+    },
+    {
+      "text": "Which of the following means that $x$ divides $y$?",
+      "choices": [
+        "$x + y = 0$",
+        "$y = x + k$ for some integer $k$",
+        "$y = xk$ for some integer $k$",
+        "$x = yk$ for some integer $k$"
+      ],
+      "correct": 2,
+      "explanation": "By definition, $x$ divides $y$ if there exists an integer $k$ such that $y = xk$."
+    },
+    {
+      "text": "Which of the following numbers is even?",
+      "choices": [
+        "$17$",
+        "$21$",
+        "$36$",
+        "$45$"
+      ],
+      "correct": 2,
+      "explanation": "An integer is even if it is divisible by $2$. Since $36 = 2 \\cdot 18$, it is even."
+    },
+    {
+      "text": "Which of the following statements about odd and even numbers is true?",
+      "choices": [
+        "The sum of two odd numbers is odd",
+        "The product of two odd numbers is even",
+        "The sum of an even and an odd number is odd",
+        "The product of an even and an odd number is odd"
+      ],
+      "correct": 2,
+      "explanation": "An even number plus an odd number is always odd. The other statements are false."
+    },
+    {
+      "text": "On a $12$-hour clock, what time is it $5$ hours after $9$ o'clock?",
+      "choices": [
+        "$2$ o'clock",
+        "$14$ o'clock",
+        "$3$ o'clock",
+        "$4$ o'clock"
+      ],
+      "correct": 0,
+      "explanation": "Starting from $9$ and adding $5$ gives $14$, which corresponds to $2$ o'clock on a $12$-hour clock."
+    },
+    {
+      "text": "Which of the following expresses the clock calculation $9 + 5 = 2$ correctly using modular arithmetic?",
+      "choices": [
+        "$9 + 5 = 14$",
+        "$9 + 5 \\equiv 2 \\pmod{12}$",
+        "$9 + 5 \\equiv 2 \\pmod{5}$",
+        "$9 + 5 \\equiv 14 \\pmod{12}$"
+      ],
+      "correct": 1,
+      "explanation": "On a $12$-hour clock, numbers are considered modulo $12$, so $9 + 5 \\equiv 2 \\pmod{12}$."
+    },
+    {
+      "text": "Which of the following numbers is congruent to $17$ modulo $5$?",
+      "choices": [
+        "$1$",
+        "$2$",
+        "$3$",
+        "$4$"
+      ],
+      "correct": 1,
+      "explanation": "Since $17 = 3 \\cdot 5 + 2$, we have $17 \\equiv 2 \\pmod{5}$."
+    },
+    {
+      "text": "Which of the following statements is true?",
+      "choices": [
+        "$14 \\equiv 3 \\pmod{5}$",
+        "$14 \\equiv 4 \\pmod{5}$",
+        "$14 \\equiv 5 \\pmod{5}$",
+        "$14 \\equiv 6 \\pmod{5}$"
+      ],
+      "correct": 1,
+      "explanation": "Dividing $14$ by $5$ gives remainder $4$, so $14 \\equiv 4 \\pmod{5}$."
+    },
+    {
+      "text": "If $x \\equiv 1 \\pmod{4}$, which of the following could be a value of $x$?",
+      "choices": [
+        "$6$",
+        "$7$",
+        "$8$",
+        "$9$"
+      ],
+      "correct": 3,
+      "explanation": "A number congruent to $1$ modulo $4$ has the form $4k+1$. Since $9 = 4 \\cdot 2 + 1$, it satisfies the condition."
+    }
+  ]
+}

@@ -5,10 +5,13 @@ let quizData;
 let current = 0;
 let score = 0;
 
-/* ---------- Home ---------- */
-document.getElementById("homeButton").onclick = () => {
-  window.location.href = "index.html";
-};
+
+const homeBtn = document.getElementById("homeButton");
+if (homeBtn) {
+  homeBtn.onclick = () => {
+    window.location.href = "index.html";
+  };
+}
 
 const titleEl = document.getElementById("quiz-title");
 const questionEl = document.getElementById("question");
@@ -92,9 +95,10 @@ function showResult() {
   questionEl.innerHTML = `
     <h3>Finished!</h3>
     <p>Thanks for practicing!</p>
-    <p>You scored ${score} out of ${quizData.questions.length}.</p>
-    <button onclick="window.location.href='index.html'">🏠 Home</button>
-  `;
+    <p>You scored ${score} out of ${quizData.questions.length}.</p>`;
   choicesEl.innerHTML = "";
+  feedbackEl.innerHTML = "";
   progressEl.textContent = "";
+ nextBtn.style.display = "none";
+
 }
