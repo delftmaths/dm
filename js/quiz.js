@@ -15,7 +15,14 @@ const questionEl = document.getElementById("question");
 const choicesEl = document.getElementById("choices");
 const progressEl = document.getElementById("progress");
 const nextBtn = document.getElementById("next-btn");
-const feedbackEl  = document.getElementById("feedback");
+const feedbackEl = document.getElementById("feedback");
+
+/* ---------- MathJax helper ---------- */
+function typesetMath() {
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
+}
 
 fetch(`quizzes/${quizId}.json`)
   .then(r => r.json())
@@ -27,7 +34,9 @@ fetch(`quizzes/${quizId}.json`)
 
 function showQuestion() {
   const q = quizData.questions[current];
-  progressEl.textContent = `Question ${current + 1} of ${quizData.questions.length}`;
+
+  progressEl.textContent =
+    `Question ${current + 1} of ${quizData.questions.length}`;
 
   questionEl.innerHTML = q.text;
   choicesEl.innerHTML = "";
@@ -36,26 +45,38 @@ function showQuestion() {
   q.choices.forEach((choice, i) => {
     const btn = document.createElement("button");
     btn.className = "choice";
-    btn.innerHTML = choice;
+    btn.innerHTML = `${String.fromCharCode(65 + i)}. ${choice}`;
     btn.onclick = () => selectAnswer(i);
     choicesEl.appendChild(btn);
   });
 
   nextBtn.style.display = "none";
-  MathJax.typeset();
+  typesetMath();
 }
 
 function selectAnswer(i) {
   const q = quizData.questions[current];
+  const correctLetter = String.fromCharCode(65 + q.correct);
 
   if (i === q.correct) {
     score++;
-    feedbackEl.innerHTML += `<div class="explanation"><p><strong>Correct!</strong></p><p>${q.explanation}</p></div>`;
+    feedbackEl.innerHTML = `
+      <div class="explanation">
+        <p><strong>Correct!</strong></p>
+        <p>${q.explanation}</p>
+      </div>
+    `;
   } else {
-  feedbackEl.innerHTML += `<div class="explanation">${q.explanation}</div>`;
+    feedbackEl.innerHTML = `
+      <div class="explanation">
+        <p><strong>The correct answer was ${correctLetter}.</strong></p>
+        <p>${q.explanation}</p>
+      </div>
+    `;
   }
+
   nextBtn.style.display = "block";
-  MathJax.typeset();
+  typesetMath();
 }
 
 nextBtn.onclick = () => {
@@ -72,15 +93,8 @@ function showResult() {
     <h3>Finished!</h3>
     <p>Thanks for practicing!</p>
     <p>You scored ${score} out of ${quizData.questions.length}.</p>
+    <button onclick="window.location.href='index.html'">🏠 Home</button>
   `;
   choicesEl.innerHTML = "";
   progressEl.textContent = "";
-  <button onclick="window.location.href='index.html'">🏠 Home</button>
-
-  // 🔹 Hook for future analytics (add later)
-  // sendAnalytics({ quizId, score, total: quizData.questions.length });
 }
-
-
-
-
