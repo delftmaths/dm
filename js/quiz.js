@@ -15,7 +15,7 @@ const questionEl = document.getElementById("question");
 const choicesEl = document.getElementById("choices");
 const progressEl = document.getElementById("progress");
 const nextBtn = document.getElementById("next-btn");
-const feedbackEl;
+const feedbackEl  = document.getElementById("feedback");
 
 fetch(`quizzes/${quizId}.json`)
   .then(r => r.json())
@@ -80,6 +80,7 @@ function showResult() {
   // 🔹 Hook for future analytics (add later)
   // sendAnalytics({ quizId, score, total: quizData.questions.length });
 }
+
 
 
 
