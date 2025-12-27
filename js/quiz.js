@@ -47,12 +47,13 @@ function showQuestion() {
 
 function selectAnswer(i) {
   const q = quizData.questions[current];
+  const correctLetter = String.fromCharCode(65 + q.correct);
 
   if (i === q.correct) {
     score++;
     feedbackEl.innerHTML += `<div class="explanation"><p><strong>Correct!</strong></p><p>${q.explanation}</p></div>`;
   } else {
-  feedbackEl.innerHTML += `<div class="explanation">${q.explanation}</div>`;
+  feedbackEl.innerHTML += `<div class="explanation">        <p><strong>The correct answer was ${correctLetter}.</strong></p><p>${q.explanation}</p></div>`;
   }
   nextBtn.style.display = "block";
   MathJax.typeset();
@@ -72,10 +73,11 @@ function showResult() {
     <h3>Finished!</h3>
     <p>Thanks for practicing!</p>
     <p>You scored ${score} out of ${quizData.questions.length}.</p>
+<p> </p>
+  <button onclick="window.location.href='index.html'">🏠 Home</button>
   `;
   choicesEl.innerHTML = "";
   progressEl.textContent = "";
-  <button onclick="window.location.href='index.html'">🏠 Home</button>
 
   // 🔹 Hook for future analytics (add later)
   // sendAnalytics({ quizId, score, total: quizData.questions.length });
