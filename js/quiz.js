@@ -46,9 +46,12 @@ function showQuestion() {
 function selectAnswer(i) {
   const q = quizData.questions[current];
 
-  if (i === q.correct) score++;
-
+  if (i === q.correct) {
+    score++;
+    questionEl.innerHTML += `<div class="explanation"><p><strong>Correct!</strong></p><p>${q.explanation}</p></div>`;
+  } else {
   questionEl.innerHTML += `<div class="explanation">${q.explanation}</div>`;
+      }
   nextBtn.style.display = "block";
   MathJax.typeset();
 }
@@ -75,4 +78,5 @@ function showResult() {
   // 🔹 Hook for future analytics (add later)
   // sendAnalytics({ quizId, score, total: quizData.questions.length });
 }
+
 
