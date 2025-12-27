@@ -1,22 +1,93 @@
 {
-  "title": "Week 1 – Linear Maps",
+  "title": "Prerequisites: GCD, LCM, and Prime Numbers",
   "questions": [
     {
-      "text": "What is the determinant of $\\begin{pmatrix}1 & 2 \\\\ 3 & 4\\end{pmatrix}$?",
-      "choices": ["$-2$", "$2$", "$1$", "$-1$"],
-      "correct": 0,
-      "explanation": "The determinant is $1\\cdot4 - 2\\cdot3 = -2$."
-    },
-    {
-      "text": "Which of the following maps is linear?",
+      "text": "Which of the following numbers is prime?",
       "choices": [
-        "$f(x)=x^2$",
-        "$f(x)=3x$",
-        "$f(x)=|x|$",
-        "$f(x)=x+1$"
+        "$21$",
+        "$29$",
+        "$33$",
+        "$35$"
       ],
       "correct": 1,
-      "explanation": "Only $f(x)=3x$ satisfies linearity."
+      "explanation": "A prime number has exactly two positive divisors, $1$ and itself. The number $29$ is prime."
+    },
+    {
+      "text": "Which of the following numbers is composite?",
+      "choices": [
+        "$2$",
+        "$3$",
+        "$5$",
+        "$9$"
+      ],
+      "correct": 3,
+      "explanation": "The number $9$ is composite because $9 = 3 \\cdot 3$."
+    },
+    {
+      "text": "What is the prime factorization of $60$?",
+      "choices": [
+        "$2^2 \\cdot 3 \\cdot 5$",
+        "$2 \\cdot 30$",
+        "$3 \\cdot 20$",
+        "$4 \\cdot 15$"
+      ],
+      "correct": 0,
+      "explanation": "We have $60 = 2 \\cdot 2 \\cdot 3 \\cdot 5 = 2^2 \\cdot 3 \\cdot 5$."
+    },
+    {
+      "text": "Using prime factorizations, what is $\\gcd(48, 60)$?",
+      "choices": [
+        "$6$",
+        "$12$",
+        "$24$",
+        "$48$"
+      ],
+      "correct": 1,
+      "explanation": "We have $48 = 2^4 \\cdot 3$ and $60 = 2^2 \\cdot 3 \\cdot 5$. The common factors give $\\gcd(48,60)=2^2 \\cdot 3 = 12$."
+    },
+    {
+      "text": "Using prime factorizations, what is $\\mathrm{lcm}(12,18)$?",
+      "choices": [
+        "$18$",
+        "$24$",
+        "$36$",
+        "$72$"
+      ],
+      "correct": 2,
+      "explanation": "We have $12 = 2^2 \\cdot 3$ and $18 = 2 \\cdot 3^2$. Taking the highest powers gives $\\mathrm{lcm}(12,18)=2^2 \\cdot 3^2 = 36$."
+    },
+    {
+      "text": "Which of the following statements is always true for positive integers $a$ and $b$?",
+      "choices": [
+        "$\\gcd(a,b) = a + b$",
+        "$\\gcd(a,b) \\cdot \\mathrm{lcm}(a,b) = ab$",
+        "$\\gcd(a,b) = \\mathrm{lcm}(a,b)$",
+        "$\\gcd(a,b)$ divides $a+b$"
+      ],
+      "correct": 1,
+      "explanation": "For all positive integers $a$ and $b$, we have the identity $\\gcd(a,b) \\cdot \\mathrm{lcm}(a,b) = ab$."
+    },
+    {
+      "text": "Which of the following best describes Bézout’s identity?",
+      "choices": [
+        "For all integers $a,b$, there exist integers $x,y$ such that $ax + by = a+b$",
+        "For all integers $a,b$, there exist integers $x,y$ such that $ax + by = ab$",
+        "For all integers $a,b$, there exist integers $x,y$ such that $ax + by = \\gcd(a,b)$",
+        "For all integers $a,b$, there exist integers $x,y$ such that $ax + by = \\mathrm{lcm}(a,b)$"
+      ],
+      "correct": 2,
+      "explanation": "Bézout’s identity states that there exist integers $x,y$ such that $ax + by = \\gcd(a,b)$."
+    },
+    {
+      "text": "Which of the following is a correct application of Euclid’s algorithm?",
+      "choices": [
+        "$\\gcd(48,18) = \\gcd(30,18)$",
+        "$\\gcd(48,18) = \\gcd(18,12)$",
+        "$\\gcd(48,18) = \\gcd(12,6)$",
+        "$\\gcd(48,18) = \\gcd(6,0)$"
+      ],
+      "correct": 1,
+      "explanation": "Since $48 = 2 \\cdot 18 + 12$, Euclid’s algorithm gives $\\gcd(48,18) = \\gcd(18,12)$."
     }
   ]
 }
