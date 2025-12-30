@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guided Proof: √2 is Irrational</title>
+<link rel="stylesheet" href="css/guided.css" />
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+<main>
+  <h2>Guided Proof: $\sqrt{2}$ is Irrational</h2>
+
+  <div id="steps-container"></div>
+  <button id="hint-btn">Show Hint</button>
+  <button id="reveal-btn">Reveal Step</button>
+</main>
+
+<script>
+const steps = [
+  {
+    prompt: "We will do a proof by contradiction. What is the first line of the proof?",
+    hint: "In a proof by contradiction, you begin by assuming the <em>negation</em> of the statement you want to prove.",
+    reveal: "Assume for contradiction that $\\sqrt{2}$ is rational."
+  },
+  {
+    prompt: "What properties then follow about $\\sqrt{2}$?",
+    hint: "A rational number can be written as one integer divided by another integer. Write this in symbols.",
+    reveal: "Then there exist integers $a,b$ such that $\\sqrt{2} = \\frac{a}{b}$."
+  },
+  {
+    prompt: "How can we eliminate the square root?",
+    hint: "Try squaring both sides of the equation.",
+    reveal: "Squaring gives $2 = \\frac{a^2}{b^2}$, so $a^2 = 2b^2$."
+  },
+  {
+    prompt: "What can you now conclude about $a$?",
+    hint: "If $a^2$ is even, what does that say about $a$?",
+    reveal: "Since $a^2$ is even, $a$ must be even (this can be shown either via prime divisors or via proof by contradiction). So $a = 2k$ for some integer $k$."
+  },
+  {
+    prompt: "Why does this imply that $b$ is also even?",
+    hint: "Plug in $a=2k$ into $a^2=2b^2$.",
+    reveal: "Hence $2b^2=a^2=(2k)^2=4k^2$ and so $b^2=2k^2$ is even. As above, since $b^2$ is even, $b$ must be even."
+  },
+  {
+    prompt: "The fact that $a,b$ are both even does not currently give a contradiction. What should we add to this proof (and where) to ensure it does?",
+    hint: "Look back at where we defined $a$ and $b$. Is there a way to assume they are not both even there?",
+    reveal: "When choosing integers $a$ and $b$ such that $\\sqrt{2}=a/b$, if both $a$ and $b$ are even, then $a/b=a'/b'$ where $a'=a/2$ and $b'=b/2$ are integers. We can repeatedly apply this until $a$ and $b$ are not both even."
+  }
+];
+
+let currentStep = 0;
+const stepsContainer = document.getElementById("steps-container");
+const hintBtn = document.getElementById("hint-btn");
+const revealBtn = document.getElementById("reveal-btn");
+const buttonsDiv = document.getElementById("buttons");
+
+
+function showPrompt() {
+  if (currentStep >= steps.length) {
+    hintBtn.disabled = true;
+    revealBtn.disabled = true;
+    return;
+  }
+
+  const promptDiv = document.createElement("div");
+  promptDiv.className = "prompt";
+  promptDiv.innerHTML = `<p><strong>Step ${currentStep + 1}:</strong> ${steps[currentStep].prompt}</p>`;
+  stepsContainer.appendChild(promptDiv);
+  MathJax.typeset();
+}
+
+hintBtn.onclick = () => {
+  if (currentStep < steps.length && steps[currentStep].hint) {
+    const hintDiv = document.createElement("div");
+    hintDiv.className = "hint";
+    hintDiv.innerHTML = steps[currentStep].hint;
+    stepsContainer.appendChild(hintDiv);
+    MathJax.typeset();
+  }
+};
+
+revealBtn.onclick = () => {
+  if (currentStep < steps.length) {
+    const revealDiv = document.createElement("div");
+    revealDiv.className = "reveal";
+    revealDiv.innerHTML = steps[currentStep].reveal;
+    stepsContainer.appendChild(revealDiv);
+    MathJax.typeset();
+
+    currentStep++;
+    showPrompt(); // show prompt for next step
+  }
+  else {
+      buttonsDiv.innerHTML = `<button onclick="window.location.href='index.html'">🏠 Home</button>`;
+      const finalMsg = document.createElement("div");
+      finalMsg.className = "finished";
+      finalMsg.innerHTML = `<p>The entire proof would now be as follows. Assume for contradiction that $\\sqrt{2}$ is rational. Then there exist integers $a,b$ such that $\\sqrt{2} = \\frac{a}{b}$ and $\\gcd(a,b)=1$. </p><p>In particular, since the greatest common divisor between $a$ and $b$ is 1, they are not both even. Squaring gives $2 = \\frac{a^2}{b^2}$, so $a^2 = 2b^2$. Since $a^2$ is even, $a$ must be even. So $a = 2k$ for some integer $k$.</p><p> Hence $2b^2=a^2=(2k)^2=4k^2$ and so $b^2=2k^2$ is even. As above, since $b^2$ is even, $b$ must be even. This gives a contradiction with $a$ and $b$ not both being even.</p>`;
+      stepsContainer.appendChild(finalMsg);
+    }
+};
+
+// Show first prompt at page load
+showPrompt();
+</script>
+</body>
+</html>
