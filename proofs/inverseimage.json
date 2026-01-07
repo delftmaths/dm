@@ -1,0 +1,36 @@
+{
+  "title": "Inverse Images: $f^{-1}(A \\cup B) = f^{-1}(A) \\cup f^{-1}(B)$",
+  "steps": [
+    {
+      "prompt": "To prove two sets are equal, we usually show double inclusion ($\\subseteq$ and $\\supseteq$). Let's start with $\\subseteq$. Let $x \\in f^{-1}(A \\cup B)$. What does this mean by definition?",
+      "hint": "The definition of inverse image is $x \\in f^{-1}(S) \\iff f(x) \\in S$.",
+      "reveal": "By definition, $f(x) \\in A \\cup B$."
+    },
+    {
+      "prompt": "What does it mean for an element to be in a union?",
+      "hint": "Union corresponds to the logical 'OR'.",
+      "reveal": "This implies $f(x) \\in A$ or $f(x) \\in B$."
+    },
+    {
+      "prompt": "Convert this back to inverse image notation to finish the $\\subseteq$ direction.",
+      "hint": "If $f(x) \\in A$, where is $x$?",
+      "reveal": "If $f(x) \\in A$, then $x \\in f^{-1}(A)$. If $f(x) \\in B$, then $x \\in f^{-1}(B)$. Thus $x \\in f^{-1}(A) \\cup f^{-1}(B)$."
+    },
+    {
+      "prompt": "Now we show the other direction ($\\supseteq$). Let $x \\in f^{-1}(A) \\cup f^{-1}(B)$. What does this imply?",
+      "hint": "Work backwards from the previous steps.",
+      "reveal": "This means $x \\in f^{-1}(A)$ or $x \\in f^{-1}(B)$."
+    },
+    {
+      "prompt": "Apply the definition of inverse image again.",
+      "hint": "Translate this into properties of $f(x)$.",
+      "reveal": "This implies $f(x) \\in A$ or $f(x) \\in B$. Therefore, $f(x) \\in A \\cup B$."
+    },
+    {
+      "prompt": "Conclude the proof.",
+      "hint": null,
+      "reveal": "Since $f(x) \\in A \\cup B$, then $x \\in f^{-1}(A \\cup B)$. Having shown both directions, the sets are equal."
+    }
+  ],
+  "fullProofHtml": "<p>($\\subseteq$) Let $x \\in f^{-1}(A \\cup B)$. By definition, $f(x) \\in A \\cup B$, so $f(x) \\in A$ or $f(x) \\in B$. This means $x \\in f^{-1}(A)$ or $x \\in f^{-1}(B)$, so $x \\in f^{-1}(A) \\cup f^{-1}(B)$.</p><p>($\\supseteq$) Let $x \\in f^{-1}(A) \\cup f^{-1}(B)$. Then $x \\in f^{-1}(A)$ or $x \\in f^{-1}(B)$. This implies $f(x) \\in A$ or $f(x) \\in B$, which means $f(x) \\in A \\cup B$. Thus $x \\in f^{-1}(A \\cup B)$.</p><p>Since both inclusions hold, the sets are equal. $\\square$</p>"
+}

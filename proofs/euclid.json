@@ -1,0 +1,26 @@
+{
+  "title": "Euclidean Algorithm: Calculate $\\gcd(252, 105)$",
+  "steps": [
+    {
+      "prompt": "We want to calculate $\\gcd(252, 105)$. According to the Euclidean algorithm, we first write $252$ in terms of $105$ using the division algorithm ($a = bq + r$).",
+      "hint": "How many times does 105 go into 252? What is the remainder?",
+      "reveal": "$252 = 2 \\times 105 + 42$."
+    },
+    {
+      "prompt": "The algorithm states that $\\gcd(252, 105) = \\gcd(105, 42)$. What is the next step?",
+      "hint": "Shift the numbers left: Write 105 in terms of 42.",
+      "reveal": "We divide 105 by 42: $105 = 2 \\times 42 + 21$."
+    },
+    {
+      "prompt": "Now we need $\\gcd(42, 21)$. What is the next equation?",
+      "hint": "Divide 42 by 21.",
+      "reveal": "$42 = 2 \\times 21 + 0$."
+    },
+    {
+      "prompt": "The remainder is now 0. What is the GCD?",
+      "hint": "The GCD is the last non-zero remainder found in the process.",
+      "reveal": "Since the remainder is 0, the process stops. The last non-zero remainder was 21. Therefore, $\\gcd(252, 105) = 21$."
+    }
+  ],
+  "fullProofHtml": "<p>We apply the Euclidean Algorithm repeatedly:</p><p>$$252 = 2(105) + 42$$</p><p>$$105 = 2(42) + 21$$</p><p>$$42 = 2(21) + 0$$</p><p>The last non-zero remainder is 21. Thus, $\\gcd(252, 105) = 21$.</p>"
+}

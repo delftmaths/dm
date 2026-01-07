@@ -1,0 +1,31 @@
+{
+  "title": "Sum of Integers (Induction)",
+  "steps": [
+    {
+      "prompt": "We want to prove by induction that for all $n \\geq 1$, $\\sum_{i=1}^n i = \\frac{n(n+1)}{2}$. What is the Base Case?",
+      "hint": "Set $n=1$ and check if the LHS equals the RHS.",
+      "reveal": "Base Case ($n=1$): LHS is $1$. RHS is $\\frac{1(1+1)}{2} = 1$. The formula holds."
+    },
+    {
+      "prompt": "What is the Inductive Hypothesis?",
+      "hint": "Assume the statement is true for some arbitrary integer $k$.",
+      "reveal": "Assume that for some $k \\geq 1$, $\\sum_{i=1}^k i = \\frac{k(k+1)}{2}$."
+    },
+    {
+      "prompt": "We now consider the case for $n = k+1$. How do we express the sum for $k+1$ using the sum for $k$?",
+      "hint": "Separate the last term ($(k+1)$) from the summation.",
+      "reveal": "We look at $\\sum_{i=1}^{k+1} i = \\left(\\sum_{i=1}^k i\\right) + (k+1)$."
+    },
+    {
+      "prompt": "Apply the Inductive Hypothesis and simplify.",
+      "hint": "Substitute $\\frac{k(k+1)}{2}$ for the summation part, then find a common denominator.",
+      "reveal": "Using the hypothesis: $\\frac{k(k+1)}{2} + (k+1) = (k+1)\\left(\\frac{k}{2} + 1\\right) = (k+1)\\left(\\frac{k+2}{2}\\right) = \\frac{(k+1)((k+1)+1)}{2}$."
+    },
+    {
+      "prompt": "What is the conclusion?",
+      "hint": null,
+      "reveal": "We have shown that if the formula holds for $k$, it holds for $k+1$. By the Principle of Mathematical Induction, it holds for all $n \\geq 1$."
+    }
+  ],
+  "fullProofHtml": "<p><strong>Base Case ($n=1$):</strong> $1 = \\frac{1(2)}{2}$, so the statement holds.</p><p><strong>Inductive Step:</strong> Assume $\\sum_{i=1}^k i = \\frac{k(k+1)}{2}$. Consider $n=k+1$:</p><p>$$\\sum_{i=1}^{k+1} i = \\frac{k(k+1)}{2} + (k+1) = (k+1)\\left(\\frac{k}{2} + \\frac{2}{2}\\right) = \\frac{(k+1)(k+2)}{2}$$</p><p>This matches the formula for $n=k+1$. By PMI, the statement is true for all $n \\geq 1$. $\\square$</p>"
+}

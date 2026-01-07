@@ -1,0 +1,26 @@
+{
+  "title": "There are Infinitely Many Primes",
+  "steps": [
+    {
+      "prompt": "We will use proof by contradiction. How do we start?",
+      "hint": "Assume the opposite: that there is a finite number of primes.",
+      "reveal": "Assume for contradiction that there are finitely many primes. Let us list them as $p_1, p_2, \\dots, p_n$."
+    },
+    {
+      "prompt": "We need to construct a new number $N$ that will lead to a contradiction. How should we define $N$ using our list of primes?",
+      "hint": "Think of a number that is guaranteed to have a remainder of 1 when divided by any prime in our list.",
+      "reveal": "Consider the number $N = p_1 p_2 \\dots p_n + 1$."
+    },
+    {
+      "prompt": "Since $N > 1$, by the Fundamental Theorem of Arithmetic, it must have a prime factor, call it $q$. Is $q$ in our original list?",
+      "hint": "Check if $N$ is divisible by $p_1$. What is the remainder? What about $p_2$?",
+      "reveal": "If $q$ were in our list, say $q = p_i$, then $q$ would divide the product $p_1 \\dots p_n$. However, since $q$ divides $N$, it must divide the difference $N - (p_1 \\dots p_n) = 1$."
+    },
+    {
+      "prompt": "What is the contradiction?",
+      "hint": "Can a prime number divide 1?",
+      "reveal": "A prime number $q$ cannot divide 1. Therefore, the prime factor $q$ cannot be in our finite list $p_1, \\dots, p_n$. This contradicts the assumption that the list contained *all* prime numbers."
+    }
+  ],
+  "fullProofHtml": "<p>Assume for contradiction that there are finitely many primes $p_1, p_2, \\dots, p_n$. Consider the number $N = p_1 p_2 \\dots p_n + 1$.</p><p>Since $N > 1$, it must have a prime factor $q$. If $q$ were one of the primes in our list (say $q=p_i$), then $q$ would divide the product $p_1 \\dots p_n$. Since $q$ also divides $N$, $q$ must divide the difference $N - p_1 \\dots p_n = 1$.</p><p>But no prime divides 1. Thus $q$ is a prime not in our list, contradicting the assumption that we listed all primes. $\\square$</p>"
+}
