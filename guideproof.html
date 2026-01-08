@@ -4,138 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Guided Proof</title>
-<style>
-/* GLOBAL RESET & LAYOUT */
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 1rem;
-    line-height: 1.5; /* Slightly tighter line height */
-    color: #1a202c;   /* Standard dark black for all text */
-    background-color: #fdfdfd;
-    
-    /* Layout for sticky footer */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main {
-    flex: 1;
-}
-
-h2 {
-    font-size: 1.4rem;
-    color: #1a202c;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.25rem;
-    margin-top: 0.5rem;
-}
-
-/* CARDS (Prompt, Hint, Reveal) */
-.prompt, .hint, .reveal, .finished, .error {
-    /* Layout */
-    padding: 0.75rem 1rem;  /* Reduced padding (was 1rem) */
-    margin-bottom: 0.75rem; /* Reduced spacing between boxes */
-    border-radius: 6px;
-    border-left-width: 5px;
-    border-left-style: solid;
-    
-    /* Text */
-    color: #1a202c; /* Uniform black text for everything */
-    font-size: 1rem;
-    
-    /* Animation */
-    animation: slideIn 0.3s ease-out;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* Remove default margins from paragraphs inside cards to save vertical space */
-.prompt p, .hint p, .reveal p, .finished p {
-    margin: 0; 
-}
-/* If a box has multiple paragraphs, add a small gap between them */
-.prompt p + p, .hint p + p, .reveal p + p, .finished p + p {
-    margin-top: 0.5rem;
-}
-
-/* SPECIFIC CARD COLORS (Background & Border only) */
-.prompt {
-    background-color: #ebf8ff; /* Light Blue */
-    border-left-color: #3182ce;
-}
-
-.hint {
-    background-color: #fffff0; /* Light Yellow */
-    border-left-color: #d69e2e;
-}
-
-.reveal {
-    background-color: #f0fff4; /* Light Green */
-    border-left-color: #38a169;
-}
-
-.finished {
-    background-color: #edf2f7; /* Grey */
-    border-left-color: #718096;
-    border: 1px solid #e2e8f0;
-}
-
-.error {
-    background-color: #fff5f5;
-    border-left-color: #e53e3e;
-}
-
-/* BUTTONS AREA */
-#buttons {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e2e8f0;
-    display: flex;
-    gap: 8px; 
-    flex-wrap: wrap;
-}
-
-button {
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    
-    /* Mobile friendly sizing */
-    flex: 1; 
-    min-width: 120px; 
-}
-
-/* Button Colors */
-#hint-btn {
-    background-color: #ecc94b; /* Yellow button */
-    color: #442a06; /* Dark text for contrast on yellow */
-}
-#hint-btn:hover { background-color: #d69e2e; }
-
-#reveal-btn, .restart-btn {
-    background-color: #3182ce; /* Blue button */
-    color: white;
-}
-#reveal-btn:hover { background-color: #2b6cb0; }
-
-button:disabled {
-    background-color: #cbd5e0 !important;
-    color: #718096 !important;
-    cursor: not-allowed;
-    opacity: 0
-</style>
+<link rel="stylesheet" href="css/guided.css">
 
 <script>
 window.MathJax = {
@@ -183,11 +52,9 @@ const titleElem = document.getElementById("proof-title");
 
 // --- Helper: Robustly Render MathJax ---
 function renderMath() {
-  // Check if MathJax is loaded and the typesetPromise function is available
   if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
       MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err));
   } else {
-      // If MathJax isn't ready yet, wait 50ms and try again
       console.log("MathJax not ready, retrying...");
       setTimeout(renderMath, 50);
   }
@@ -217,7 +84,7 @@ if (proofId) {
         });
 } else {
     titleElem.innerText = "Welcome";
-    stepsContainer.innerHTML = "<p>Please select a proof from the Home Page.</p>";
+    stepsContainer.innerHTML = "<p>Please select a proof from the <a href='index.html'>Home Page</a>.</p>";
     buttonsDiv.style.display = 'none';
 }
 
@@ -268,7 +135,9 @@ hintBtn.onclick = () => {
     renderMath();
     
     hintBtn.disabled = true;
-    hintDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // UPDATED: Now scrolls to CENTER just like the Reveal button
+    hintDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 };
 
@@ -290,6 +159,7 @@ revealBtn.onclick = () => {
   else {
       const finalMsg = document.createElement("div");
       finalMsg.className = "finished";
+      
       finalMsg.innerHTML = `<h3>${proofData.title}</h3>${proofData.fullProofHtml}`;
       stepsContainer.appendChild(finalMsg);
       

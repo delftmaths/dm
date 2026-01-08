@@ -1,0 +1,127 @@
+{
+  "title": "Prerequisites: Sets and Functions",
+  "questions": [
+    {
+      "text": "Let $A = \\{1,2,3\\}$ and $B = \\{3,4\\}$. What is $A \\cap B$?",
+      "choices": [
+        "$\\{1,2\\}$",
+        "$\\{3\\}$",
+        "$\\{1,2,3,4\\}$",
+        "$\\emptyset$"
+      ],
+      "correct": 1,
+      "explanation": "The intersection $A \\cap B$ contains exactly the elements common to both sets. Only $3$ is in both.<br><br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Venn0001.svg/240px-Venn0001.svg.png' class='explanation-img' alt='Venn Diagram Intersection'>"
+    },
+    {
+      "text": "Which of the following is the correct definition of the set difference $B \\setminus A$?",
+      "choices": [
+        "$\\{x : x \\in A \\text{ and } x \\in B\\}$",
+        "$\\{x : x \\in A \\text{ and } x \\notin B\\}$",
+        "$\\{x : x \\in B \\text{ and } x \\notin A\\}$",
+        "$\\{x : x \\notin A \\text{ and } x \\notin B\\}$"
+      ],
+      "correct": 2,
+      "explanation": "By definition, $B \\setminus A$ consists of elements that are inside $B$ but <strong>outside</strong> $A$.<br><br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Venn0010.svg/240px-Venn0010.svg.png' class='explanation-img' alt='Venn Diagram Difference'>"
+    },
+    {
+      "text": "Which of the following statements involving the empty set $\\emptyset$ is <strong>FALSE</strong>?",
+      "choices": [
+        "$\\emptyset \\subseteq \\{1, 2, 3\\}$",
+        "$\\emptyset \\subseteq \\emptyset$",
+        "$\\emptyset \\in \\{\\emptyset, 1\\}$",
+        "$\\emptyset \\in \\{1, 2, 3\\}$"
+      ],
+      "correct": 3,
+      "explanation": "The empty set is a <strong>subset</strong> of every set (so A and B are true). It is an <strong>element</strong> only if explicitly listed inside the braces (like in C). It is NOT an element of $\\{1, 2, 3\\}$."
+    },
+    {
+      "text": "Which of the following describes the <strong>union</strong> $A \\cup B$?",
+      "choices": [
+        "$\\{x : x \\in A \\text{ and } x \\in B\\}$",
+        "$\\{x : x \\in A \\text{ or } x \\in B\\}$",
+        "$\\{x : x \\notin A \\}$",
+        "$\\{x : x \\in A \\implies x \\in B\\}$"
+      ],
+      "correct": 1,
+"explanation": "The union contains all elements that belong to $A$, to $B$, or to both. In logic, 'or' is inclusive.<br><br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Venn0111.svg/240px-Venn0111.svg.png' class='explanation-img' alt='Venn Diagram Union'>"
+    },
+    {
+      "text": "Let $A=\\{1,2,3\\}$. Let $\\mathcal{P}(A)$ be the power set of $A$: the collection of subsets of $A$. How many elements does this have?",
+      "choices": [
+        "$1$",
+        "$2$",
+        "$4$",
+        "$7$",
+        "$8$"
+      ],
+      "correct": 4,
+      "explanation": "There are $2^3=8$ possible subsets, since for each of the three elements $1,2,3$, a subset either contains it or does not."
+    },
+    {
+      "text": "Which logical statement defines that a function $f: X \\to Y$ is <strong>surjective</strong> (onto)?",
+      "choices": [
+        "$\\forall x_1, x_2 \\in X, f(x_1)=f(x_2) \\implies x_1=x_2$",
+        "$\\forall y \\in Y, \\exists x \\in X \\text{ such that } f(x)=y$",
+        "$\\exists y \\in Y \\text{ such that } \\forall x \\in X, f(x) \\neq y$",
+        "$\\forall x \\in X, \\exists y \\in Y \\text{ such that } f(x)=y$"
+      ],
+      "correct": 1,
+      "explanation": "Surjective means every element $y$ in the codomain $B$ is 'hit' by at least one arrow from $A$.<br><br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Surjection.svg/240px-Surjection.svg.png' class='explanation-img' alt='Surjective Function'>"
+    },
+ {
+      "text": "Which statement is the formal definition of <strong>injective</strong> (one-to-one)?",
+      "choices": [
+        "$\\forall x_1, x_2 \\in X, f(x_1)=f(x_2) \\implies x_1=x_2$",
+        "$\\forall y \\in Y, \\exists x \\in X \\text{ such that } f(x)=y$",
+        "$\\exists y \\in Y \\text{ such that } \\forall x \\in X, f(x) \\neq y$",
+        "$\\forall x \\in X, \\exists y \\in Y \\text{ such that } f(x)=y$"
+      ],
+      "correct": 0,
+      "explanation": "Injectivity means that if the outputs are equal, the inputs MUST have been equal. In diagrams, no two arrows hit the same point.<br><br><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Injection.svg/240px-Injection.svg.png' class='explanation-img' alt='Injective Function'>"
+    },
+    {
+      "text": "Let $f : \\mathbb{R} \\to \\mathbb{R}$ be defined by $f(x)=x^2$. Which statement is true?",
+      "choices": [
+        "$f$ is injective (one-to-one)",
+        "$f$ is surjective (onto)",
+        "$f$ is bijective",
+        "$f$ is neither injective nor surjective"
+      ],
+      "correct": 3,
+      "explanation": "• Not injective: $f(-1) = f(1) = 1$.<br>• Not surjective: Negative numbers (like $-1$) are not in the range of $x^2$."
+    },
+    {
+      "text": "Which of the following functions $f: \\mathbb{R} \\to \\mathbb{R}$ is <strong>injective</strong>?",
+      "choices": [
+        "$f(x) = x^2$",
+        "$f(x) = |x|$",
+        "$f(x) = x^3$",
+        "$f(x) = \\sin(x)$"
+      ],
+      "correct": 2,
+      "explanation": "• $x^2, |x|, \\sin(x)$ all map multiple inputs to the same output (e.g., $\\sin(0)=\\sin(\\pi)$).<br>• $x^3$ is strictly increasing, so distinct inputs always go to distinct outputs."
+    },
+    {
+      "text": "Let $f: \\mathbb{R} \\to \\mathbb{R}$ be $f(x) = x^2$. What is the inverse image $f^{-1}([4, 9])$?",
+      "choices": [
+        "$[2, 3]$",
+        "$[16, 81]$",
+        "$[-3, -2] \\cup [2, 3]$",
+        "$[2, 3] \\cup [4, 9]$"
+      ],
+      "correct": 2,
+      "explanation": "We need all $x$ such that $4 \\le x^2 \\le 9$. This happens when $2 \\le x \\le 3$ OR when $-3 \\le x \\le -2$."
+    },
+{
+      "text": "Let $A = \\{1, 2, 3, 4\\}$ and $B = \\{10, 20, 30\\}$.<br>Define the function $f: A \\to B$ by the mapping: $f(1)=10, f(2)=10, f(3)=20, f(4)=20$.<br>What is the <strong>image</strong> (or range, NL: beeld) of $f$?",
+      "choices": [
+        "$\\{10, 20, 30\\}$",
+        "$\\{10, 20\\}$",
+        "$\\{1, 2, 3, 4\\}$",
+        "$\\{(1, 10), (2, 10), (3, 20), (4, 20)\\}$"
+      ],
+      "correct": 1,
+      "explanation": "The <strong>codomain</strong> is all of $B$ ($\\{10, 20, 30\\}$), but the <strong>image</strong> contains only the elements that are actually 'hit' by the function. Since no input maps to $30$, the image is just $\\{10, 20\\}$."
+    }
+  ]
+}

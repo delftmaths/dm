@@ -1,0 +1,92 @@
+{
+  "title": "Week 1: gcd, lcm, (co)prime",
+  "questions": [
+     {
+      "text": "Which of the following numbers is composite (NL: samengesteld)?",
+      "choices": [
+        "$2$",
+        "$3$",
+        "$4$",
+        "$5$"
+      ],
+      "correct": 2,
+      "explanation": "$2, 3,$ and $5$ are prime numbers. The number $4$ is composite because it has a divisor other than $1$ and itself ($4 = 2 \\times 2$)."
+    },
+    {
+      "text": "What is the prime factorisation of $60$?",
+      "choices": [
+        "$6 \\cdot 10$",
+        "$2 \\cdot 3 \\cdot 10$",
+        "$2^2 \\cdot 3 \\cdot 5$",
+        "All of the above"
+      ],
+      "correct": 2,
+      "explanation": "While $6 \\cdot 10$ equals $60$, $6$ and $10$ are not prime. The full factorisation is $60 = 6 \\cdot 10 = (2 \\cdot 3) \\cdot (2 \\cdot 5) = 2^2 \\cdot 3 \\cdot 5$."
+    },
+    {
+      "text": "Given $48 = 2^4 \\cdot 3$ and $60 = 2^2 \\cdot 3 \\cdot 5$, what is the greatest common divisor $\\gcd(48, 60)$?",
+      "choices": [
+        "$6$ ($=2 \\cdot 3$)",
+        "$12$ ($=2^2 \\cdot 3$)",
+        "$24$ ($=2^3 \\cdot 3$)",
+        "$240$ ($=2^4 \\cdot 3 \\cdot 5$)"
+      ],
+      "correct": 1,
+      "explanation": "For gcd, we take the **minimum** power of common primes. <br>Power of 2: $\\min(4,2)=2$. <br>Power of 3: $\\min(1,1)=1$. <br>Result: $2^2 \\cdot 3 = 12$."
+    },
+    {
+      "text": "Given $12 = 2^2 \\cdot 3$ and $18 = 2 \\cdot 3^2$, what is the lowest common multiple $\\mathrm{lcm}(12,18)$?",
+      "choices": [
+        "$6$ ($=2 \\cdot 3$)",
+        "$18$ ($=2 \\cdot 3^2$)",
+        "$36$ ($=2^2 \\cdot 3^2$)",
+        "$72$ ($=2^3 \\cdot 3^2$)"
+      ],
+      "correct": 2,
+      "explanation": "For lcm, we take the **maximum** power of every prime present. <br>Power of 2: $\\max(2,1)=2$. <br>Power of 3: $\\max(1,2)=2$. <br>Result: $2^2 \\cdot 3^2 = 4 \\cdot 9 = 36$."
+    },
+    {
+      "text": "Which identity relates the gcd and lcm for any positive integers $a$ and $b$?",
+      "choices": [
+        "$\\gcd(a,b) + \\mathrm{lcm}(a,b) = a + b$",
+        "$\\gcd(a,b) \\cdot \\mathrm{lcm}(a,b) = a \\cdot b$",
+        "$\\frac{\\mathrm{lcm}(a,b)}{\\gcd(a,b)} = a \\cdot b$",
+        "$\\gcd(a,b) = \\mathrm{lcm}(a,b)$"
+      ],
+      "correct": 1,
+      "explanation": "The product of the gcd and lcm of two numbers always equals the product of the numbers themselves: $\\gcd(a,b) \\cdot \\mathrm{lcm}(a,b) = ab$."
+    },
+    {
+      "text": "What does Bézout’s Identity guarantee for integers $a$ and $b$?",
+      "choices": [
+        "There exist integers $x$ and $y$ such that $ax + by=1$.",
+        "There exist integers $x$ and $y$ such that $ax + by=ab$.",
+        "There exist integers $x$ and $y$ such that $ax + by=\\gcd(a,b)$."
+      ],
+      "correct": 2,
+      "explanation": "Bézout’s identity states that if $d = \\gcd(a,b)$, then there exist integers $x$ and $y$ such that $ax + by = d$."
+    },
+    {
+      "text": "We want to calculate $\\gcd(252, 105)$. The first step of the Euclidean Algorithm is $252 = 2 \\cdot 105 + 42$. What is the correct next step?",
+      "choices": [
+        "$\\gcd(252, 105) = \\gcd(252, 42)$",
+        "$\\gcd(252, 105) = \\gcd(105, 42)$",
+        "$\\gcd(252, 105) = \\gcd(105, 2)$",
+        "$\\gcd(252, 105) = 42$"
+      ],
+      "correct": 1,
+      "explanation": "The Euclidean algorithm uses repeatedly that $\\gcd(a, b) = \\gcd(b, r)$, where $r$ is the remainder. Here $a=252, b=105, r=42$. Thus $\\gcd(252, 105) = \\gcd(105, 42)$."
+    },
+    {
+      "text": "Two integers $a$ and $b$ are said to be <em>relatively prime</em> (or coprime) if:",
+      "choices": [
+        "$\\gcd(a,b) = 1$",
+        "$\\mathrm{lcm}(a,b) = 1$",
+        "$a$ and $b$ are both prime numbers",
+        "$a$ divides $b$ or $b$ divides $a$"
+      ],
+      "correct": 0,
+      "explanation": "Being relatively prime means they share no common factors other than 1. For example, 8 and 9 are relatively prime even though neither is prime itself."
+    }
+  ]
+}

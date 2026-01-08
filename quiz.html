@@ -1,35 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Quiz</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz</title>
+<link rel="stylesheet" href="css/guided.css">
 
-  <!-- MathJax -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+  startup: { typeset: false }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
+
 <body>
-<button id="homeButton">🏠 Home</button>
 
-  <div id="quiz-container">
-    <h2 id="quiz-title"></h2>
-    <div id="progress"></div>
+<main>
+  <h2 id="quiz-title">Loading Quiz...</h2>
 
-    <div id="question"></div>
-    <div id="choices"></div>
-    <div id="feedback"></div>
-
-    <button id="next-btn">Next</button>
+  <div style="margin-bottom: 1rem; color: #718096; font-size: 0.9rem;">
+      <span id="progress-text"></span>
   </div>
 
-  <script src="js/quiz.js"></script>
+  <div id="quiz-container">
+      <div id="question-text" class="prompt"></div>
+      
+      <div id="options-container" class="options-grid"></div>
+      
+      <div id="feedback-container"></div>
+      
+      <div id="action-area" style="margin-top: 1rem; text-align: right;">
+          <button id="next-btn" style="display:none; max-width: 200px; margin-left: auto;">Next Question →</button>
+      </div>
+  </div>
+
+</main>
+
+<footer>
+    <a href="index.html" class="home-link">🏠 Home</a>
+</footer>
+
+<script>
+// --- Configuration ---
+const urlParams = new URLSearchParams(window.location.search);
+const quizId = urlParams.get('quiz');
+
+// Global State
+let quizData = null;
+let currentQuestionIndex = 0;
+let score = 0;
+let isAnswered = false;
+
+// DOM Elements
+const titleElem = document.getElementById("quiz-title");
+const questionElem = document.getElementById("question-text");
+const optionsElem = document.getElementById("options-container");
+const feedbackElem = document.getElementById("feedback-container");
+const nextBtn = document.getElementById("next-btn");
+const progressElem = document.getElementById("progress-text");
+const quizContainer = document.getElementById("quiz-container");
+
+// --- Helper: Render MathJax ---
+function renderMath() {
+  if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+      MathJax.typesetPromise().catch(err => console.log(err));
+  } else {
+      setTimeout(renderMath, 50);
+  }
+}
+
+// --- 1. Load Quiz Data ---
+if (quizId) {
+    fetch(`quizzes/${quizId}.json`)
+        .then(response => {
+            if (!response.ok) throw new Error("Quiz file not found");
+            return response.json();
+        })
+        .then(data => {
+            quizData = data;
+            initQuiz();
+        })
+        .catch(err => {
+            console.error(err);
+            titleElem.innerText = "Error Loading Quiz";
+            quizContainer.innerHTML = `<div class='error'>Could not load quiz: ${quizId}<br/>Make sure you are running a local server.</div>`;
+        });
+} else {
+    titleElem.innerText = "No Quiz Selected";
+    quizContainer.style.display = 'none';
+}
+
+// --- 2. Initialize ---
+function initQuiz() {
+    titleElem.innerText = quizData.title;
+    loadQuestion();
+}
+
+// --- 3. Load Question ---
+function loadQuestion() {
+    isAnswered = false;
+    feedbackElem.innerHTML = "";
+    feedbackElem.className = ""; 
+    nextBtn.style.display = "none";
+    optionsElem.innerHTML = "";
+
+    if (currentQuestionIndex >= quizData.questions.length) {
+        showFinalResults();
+        return;
+    }
+
+    const q = quizData.questions[currentQuestionIndex];
+    
+    // Update Progress
+    progressElem.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.questions.length}`;
+    
+    // Set Question Text
+    questionElem.innerHTML = `<p>${q.text}</p>`;
+
+    // Generate Options with A, B, C labels
+    q.choices.forEach((choice, index) => {
+        const btn = document.createElement("button");
+        btn.className = "quiz-option";
+        
+        // Generate letter (0='A', 1='B', etc.)
+        const letter = String.fromCharCode(65 + index); 
+        
+        // Structure: <span class="label">A.</span> <span>Answer text</span>
+        btn.innerHTML = `<span class="option-label">${letter}.</span> <span>${choice}</span>`;
+        
+        btn.onclick = () => handleAnswer(index, q.correct);
+        optionsElem.appendChild(btn);
+    });
+
+    renderMath();
+}
+
+// --- 4. Handle Answer ---
+function handleAnswer(selectedIndex, correctIndex) {
+    if (isAnswered) return;
+    isAnswered = true;
+
+    const buttons = optionsElem.querySelectorAll(".quiz-option");
+    const q = quizData.questions[currentQuestionIndex];
+
+    // Disable all buttons to prevent changing answer
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (selectedIndex === correctIndex) {
+        score++;
+        buttons[selectedIndex].classList.add("correct");
+        
+        feedbackElem.className = "reveal"; 
+        feedbackElem.innerHTML = `<strong>Correct!</strong><br/>${q.explanation}`;
+    } else {
+        buttons[selectedIndex].classList.add("wrong");
+        buttons[correctIndex].classList.add("correct"); // Show the right one
+
+        feedbackElem.className = "error";
+        feedbackElem.innerHTML = `<strong>Incorrect.</strong> The correct answer was <strong>${String.fromCharCode(65 + correctIndex)}</strong>.<br/><hr style="margin:10px 0; opacity:0.3"/>${q.explanation}`;
+    }
+
+    nextBtn.style.display = "block";
+    feedbackElem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    renderMath();
+}
+
+// --- 5. Next Button ---
+nextBtn.onclick = () => {
+    currentQuestionIndex++;
+    loadQuestion();
+    titleElem.scrollIntoView({ behavior: 'smooth' });
+};
+
+// --- 6. Final Results ---
+function showFinalResults() {
+    quizContainer.innerHTML = "";
+    progressElem.innerText = "";
+    
+    const percentage = Math.round((score / quizData.questions.length) * 100);
+    
+    const resultDiv = document.createElement("div");
+    resultDiv.className = "finished";
+    resultDiv.innerHTML = `
+        <h3>Quiz Complete</h3>
+        <p>You scored <strong>${score} / ${quizData.questions.length}</strong> (${percentage}%)</p>
+        <p>Thanks for practising!</p>
+    `;
+    
+    quizContainer.appendChild(resultDiv);
+
+    const restartBtn = document.createElement("button");
+    restartBtn.className = "restart-btn";
+    restartBtn.innerText = "🔄 Restart Quiz";
+    restartBtn.style.marginTop = "1rem";
+    restartBtn.onclick = () => window.location.reload();
+    
+    quizContainer.appendChild(restartBtn);
+}
+</script>
 </body>
 </html>
-
-
