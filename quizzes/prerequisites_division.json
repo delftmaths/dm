@@ -1,0 +1,115 @@
+{
+  "title": "Prerequisites: Divisibility and Modular Arithmetic",
+  "questions": [
+    {
+      "text": "Which of the following is the definition of $x$ divides $y$ (notation: $x \\mid y$)?",
+      "choices": [
+        "$y/x$ is a number",
+        "$y = x + k$ for some integer $k$",
+        "$y = xk$ for some integer $k$",
+        "$x = yk$ for some integer $k$"
+      ],
+      "correct": 2,
+      "explanation": "By definition, $x$ divides $y$ if there exists an integer $k$ such that $y = xk$. Be careful not to mix up $x$ and $y$!"
+    },
+    {
+      "text": "Which of the following statements is true?",
+      "choices": [
+        "$3$ divides $10$",
+        "$12$ divides $4$",
+        "$5$ divides $0$",
+        "None of the above"
+      ],
+      "correct": 2,
+      "explanation": "Remember that $a$ divides $b$ if $b = ak$ for some integer $k$. <br>• $5$ divides $0$ is true because $0 = 5 \\cdot 0$. <br>• $12$ does not divide $4$ (the order matters)."
+    },
+    {
+      "text": "On a $12$-hour clock, what time is it $5$ hours after $9$ o'clock?",
+      "choices": [
+        "$2$ o'clock",
+        "$3$ o'clock",
+        "$4$ o'clock",
+        "$5$ o'clock"
+      ],
+      "correct": 0,
+      "explanation": "$9 + 5 = 14$. Since clocks wrap around every $12$ hours, we subtract $12$ to get $14 - 12 = 2$."
+    },
+    {
+      "text": "How do we express the clock calculation $9 + 5 = 2$ in modular arithmetic notation?",
+      "choices": [
+        "$9 + 5 = 14$",
+        "$9 + 5 \\equiv 2 \\pmod{12}$",
+        "$9 + 5 \\equiv 2 \\pmod{5}$",
+        "$9 + 5 \\equiv 14 \\pmod{2}$"
+      ],
+      "correct": 1,
+      "explanation": "We say that $14$ is congruent to $2$ modulo $12$. This is written as $14 \\equiv 2 \\pmod{12}$."
+    },
+    {
+      "text": "What is $17 \\pmod 5$?",
+      "choices": [
+        "$2$",
+        "$3$",
+        "$4$",
+        "$5$"
+      ],
+      "correct": 0,
+      "explanation": "We divide $17$ by $5$: $17 = 3 \\cdot 5 + 2$. The remainder is $2$. <br>(Note: $3$ is the quotient.)"
+    },
+    {
+      "text": "If $x \\equiv 1 \\pmod{4}$, which of the following could be a value of $x$?",
+      "choices": [
+        "$6$",
+        "$8$",
+        "$9$",
+        "$12$"
+      ],
+      "correct": 2,
+      "explanation": "We are looking for a number of the form $4k+1$. <br> $9 = 2 \\cdot 4 + 1$, so it fits."
+    },
+    {
+      "text": "Which of the following represents <em>all</em> integer solutions to $2x \\equiv 2 \\pmod 4$?",
+      "choices": [
+        "integers $x$ such that $x \\equiv 1 \\pmod 4$",
+        "odd integers",
+        "even integers",
+        "$\\mathbb{Z}$"
+      ],
+      "correct": 1,
+      "explanation": "We cannot simply divide by 2 because $\\gcd(2,4) \\neq 1$. <br>$2x = 2 + 4k \\implies 2x$ is $2, 6, 10, 14 \\dots$ <br>Dividing by 2 gives $x = 1, 3, 5, 7 \\dots$, so $x \\equiv 1$ or $3 \\pmod 4$."
+    },
+    {
+      "text": "What is the value of $\\gcd(n, n+2)$ for any positive integer $n$?",
+      "choices": [
+        "It is always $1$.",
+        "It is always $2$.",
+        "It is either $1$ or $2$.",
+        "None of the answers above."
+      ],
+      "correct": 2,
+      "explanation": "By the Euclidean algorithm, $\\gcd(n, n+2) = \\gcd(n, 2)$. If $n$ is even, this is $2$. If $n$ is odd, this is $1$."
+    },
+    {
+      "text": "Calculate $2^{50} \\pmod 3$.",
+      "choices": [
+        "$1$",
+        "$2$",
+        "$0$",
+        "None of the answers above"
+      ],
+      "correct": 0,
+      "explanation": "Note that $2 \\equiv -1 \\pmod 3$. <br>Therefore, $2^{50} \\equiv (-1)^{50} \\equiv 1 \\pmod 3$."
+    },
+    {
+      "text": "Which of the following statements about modular congruence is <strong>FALSE</strong>?",
+      "choices": [
+        "If $a \\equiv b \\pmod n$, then $a^2 \\equiv b^2 \\pmod n$.",
+        "If $a^2 \\equiv b^2 \\pmod n$, then $a \\equiv b \\pmod n$.",
+        "If $a \\equiv b \\pmod n$, then $a + c \\equiv b + c \\pmod n$.",
+        "If $a \\equiv b \\pmod n$, then $n$ divides $a-b$."
+      ],
+      "correct": 1,
+      "explanation": "Counterexample: Let $n=5$. Then $2^2 = 4$ and $3^2 = 9 \\equiv 4$. So $2^2 \\equiv 3^2 \\pmod 5$, but $2 \\not\\equiv 3 \\pmod 5$."
+    }
+  ]
+}

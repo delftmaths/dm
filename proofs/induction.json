@@ -1,0 +1,26 @@
+{
+  "title": "Sum of integers (induction proof example)",
+  "steps": [
+    {
+      "prompt": "We want to prove by induction that for all $n \\geq 1$, $1+2+\\dots+n = \\frac{n(n+1)}{2}$. What is the base case?",
+      "hint": "Set $n=1$ and check if the LHS equals the RHS.",
+      "reveal": "Base Case ($n=1$): LHS is $1$. RHS is $\\frac{1(1+1)}{2} = 1$. So the formula holds for $n=1$."
+    },
+    {
+      "prompt": "What is the induction hypothesis?",
+      "hint": "The induction hypothesis is usually the statement we want to prove.",
+      "reveal": "Suppose that we have shown for some $k\\geq 1$ that $1+2+\\dots+k = \\frac{k(k+1)}{2}$ (IH)."
+    },
+    {
+      "prompt": "In the induction step we show that the statement for $n=k$ implies the statement for $n = k+1$. How can we apply (IH) to $1+\\dots+(k+1)$?",
+      "hint": "Separate the last term ($(k+1)$) from the summation.",
+      "reveal": "By the induction hypothesis, $1+\\dots+k+1=(1+\\dots+k)+k+1 = \\frac{k(k+1)}{2} + (k+1)$."
+    },
+    {
+      "prompt": "Finish the proof.",
+      "hint": "Simplify the expression by finding a common denominator.",
+      "reveal": "$\\frac{k(k+1)}{2} + (k+1) = (k+1)\\left(\\frac{k}{2} + 1\\right) = (k+1)\\left(\\frac{k+2}{2}\\right) = \\frac{(k+1)((k+1)+1)}{2}$. So we have shown the formula for $k+1$ and completed the induction step. By induction, the formula now holds for all $n\\geq 1$."
+    }
+  ],
+  "fullProofHtml": "<p>We prove $1+\\dots+n=\\frac{n(n+1}2$ by induction on $n$.</p><p><strong>Base case ($n=1$):</strong> $1 = \\frac{1(2)}{2}$, so the statement holds.</p><p><strong>Induction hypothesis:</strong> $1+\\dots+k = \\frac{k(k+1)}{2}$.</p><p><strong>Induction step:</strong>: Suppose that the induction hypothesis has been shown for some $k\\geq 1$.</p><p>Using the induction hypothesis, $1+2+\\dots+k+(k+1) = \\frac{k(k+1)}{2} + (k+1)$. Simplification shows that</p><p>$$\\frac{k(k+1)}{2} + (k+1) = (k+1)\\left(\\frac{k}{2} + \\frac{2}{2}\\right) = \\frac{(k+1)(k+2)}{2}.$$</p><p>This proves the formula for $k+1$. By induction, the statement is true for all $n \\geq 1$. $\\square$</p>"
+}

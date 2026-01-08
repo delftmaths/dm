@@ -1,0 +1,82 @@
+{
+  "title": "Proof Skills Review: Logic, Quantifiers, and Induction",
+  "questions": [
+    {
+      "text": "What is the correct logical negation of the statement: \"For all real numbers $x$, $x^2 \\ge 0$\"?",
+      "choices": [
+        "For all real numbers $x$, $x^2 < 0$",
+        "There exists a real number $x$ such that $x^2 < 0$",
+        "There exists a real number $x$ such that $x^2 \\le 0$",
+        "For some real numbers $x$, $x^2 \\ge 0$"
+      ],
+      "correct": 1,
+      "explanation": "To negate a universal quantifier ($\\forall$), we switch it to an existential quantifier ($\\exists$) and negate the condition. The negation of $\\ge$ is $<$, not $\\le$."
+    },
+    {
+      "text": "Which statement is the correct negation of: \"If it rains, then the grass is wet\"?",
+      "choices": [
+        "If it rains, then the grass is not wet",
+        "If it does not rain, then the grass is not wet",
+        "It rains and the grass is not wet",
+        "It does not rain and the grass is wet"
+      ],
+      "correct": 2,
+      "explanation": "The negation of an implication $P \\implies Q$ is $P \\land \\neg Q$. The original statement only promises what happens if it rains; to disprove it, you need rain ($P$) <strong>and</strong> dry grass ($\\neg Q$)."
+    },
+    {
+      "text": "Consider the statement: \"For all real numbers $x$, if $x^2 < -1$, then $x = 100$.\" Is this statement true or false?",
+      "choices": [
+        "False, because $x$ cannot be $100$ if $x^2 < -1$.",
+        "False, because $x^2$ is never negative.",
+        "True (Vacuously True).",
+        "Undefined."
+      ],
+      "correct": 2,
+      "explanation": "An implication $P \\implies Q$ is <strong>always true</strong> if the premise $P$ is false. Since $x^2 < -1$ is never true for real numbers, the implication holds \"vacuously\"."
+    },
+    {
+      "text": "Which of the following statements is logically equivalent to: \"If $n$ is divisible by 4, then $n$ is even\"?",
+      "choices": [
+        "If $n$ is even, then $n$ is divisible by 4",
+        "If $n$ is not even, then $n$ is not divisible by 4",
+        "If $n$ is odd, then $n$ is divisible by 4",
+        "If $n$ is divisible by 2, then $n$ is divisible by 4"
+      ],
+      "correct": 1,
+      "explanation": "A statement ($P \\implies Q$) is logically equivalent to its <strong>contrapositive</strong> ($\\neg Q \\implies \\neg P$). Note that 'not even' is 'odd'."
+    },
+    {
+      "text": "To prove the statement \"There exists a <strong>unique</strong> integer $x$ such that $P(x)$\", what two steps are required?",
+      "choices": [
+        "1. Find an example $x$. 2. Show that $P(x)$ implies $P(x+1)$.",
+        "1. Show existence (find such an $x$). 2. Show uniqueness (assume $P(y)$ and $P(z)$ are true, then prove $y=z$).",
+        "1. Show $P(x)$ is true. 2. Show $\\neg P(x)$ is false.",
+        "1. Show existence. 2. Show the contrapositive."
+      ],
+      "correct": 1,
+      "explanation": "Uniqueness proofs always consist of two parts: proving at least one solution exists, and then proving that any two hypothetical solutions must actually be the same number."
+    },
+    {
+      "text": "In a proof by contradiction of the statement \"If $n^2$ is even, then $n$ is even\", what is the correct starting assumption?",
+      "choices": [
+        "Assume $n$ is even",
+        "Assume $n^2$ is odd",
+        "Assume $n^2$ is even and $n$ is odd",
+        "Assume $n$ is odd and $n^2$ is odd"
+      ],
+      "correct": 2,
+      "explanation": "To prove $P \\implies Q$ by contradiction, we assume that $P$ is true but $Q$ is false. Here: $n^2$ is even ($P$) but $n$ is odd (not $Q$)."
+    },
+    {
+      "text": "Read the following famous paradox carefully.<br><br><strong>Claim:</strong> All horses are the same colour.<br><strong>Base case:</strong> A set of $1$ horse clearly has the same colour.<br><strong>Inductive step:</strong> Assume any set of $n$ horses has the same colour.<br>Consider a set of $n+1$ horses: $\\{H_1, H_2, \\dots, H_n, H_{n+1}\\}$.<br>1. Remove $H_{n+1}$. The set $\\{H_1, \\dots, H_n\\}$ has $n$ horses, so they match (by hypothesis).<br>2. Replace $H_{n+1}$ and remove $H_1$. The set $\\{H_2, \\dots, H_{n+1}\\}$ has $n$ horses, so they match.<br>Since the middle horses $\\{H_2, \\dots, H_n\\}$ didn't change, $H_1$ matches them, and $H_{n+1}$ matches them. Thus $H_1$ matches $H_{n+1}$.<br><br>Where does this logic break down?",
+      "choices": [
+        "The base case $n=1$ is false.",
+        "The application of induction hypothesis is incorrect.",
+        "We cannot remove horses from a set.",
+        "The problem is in the last two sentences."
+      ],
+      "correct": 2,
+      "explanation": "The last two sentences uses that the two sets <strong>overlap</strong> in order to transfer the colour property. When $n=1$, we move to $n+1=2$ horses: $\\{H_1, H_2\\}$.<br>• Removing $H_2$ leaves $\\{H_1\\}$.<br>• Removing $H_1$ leaves $\\{H_2\\}$.<br>There is <strong>no middle horse</strong> to connect them! The induction step fails when moving from $n=1$ to $n=2$."
+    }
+  ]
+}

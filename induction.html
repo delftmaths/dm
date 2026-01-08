@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Induction Visualizer</title>
+<link rel="stylesheet" href="css/guided.css">
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+    /* --- Layout --- */
+    .viz-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+        margin-bottom: 40px;
+        border-bottom: 3px solid #cbd5e0;
+        padding-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .viz-wrapper { grid-template-columns: 1fr; }
+    }
+
+    .viz-main {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* --- Visualizer Track --- */
+    .viz-container {
+        background-color: #fdfdfd;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 40px 10px;
+        overflow-x: auto;
+    }
+
+    .track {
+        display: flex;
+        gap: 25px;
+        min-height: 160px;
+        align-items: flex-end;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .domino-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50px; 
+        flex-shrink: 0;
+    }
+
+    .domino {
+        width: 40px;
+        height: 80px;
+        background-color: #e53e3e; /* Red = False */
+        border: 2px solid #9b2c2c;
+        border-radius: 4px;
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        font-size: 0.85rem;
+        z-index: 2;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .domino.true {
+        background-color: #38a169; /* Green */
+        border-color: #22543d;
+        height: 35px;
+        transform: translateY(45px) rotate(90deg);
+        box-shadow: none;
+    }
+
+    .domino.premise {
+        box-shadow: 0 0 20px #38a169;
+        border-color: #2f855a;
+        z-index: 10;
+    }
+
+    /* --- Arrows --- */
+    .arrow {
+        position: absolute;
+        top: -25px;
+        left: 25px; 
+        height: 4px;
+        background: #cbd5e0;
+        display: none;
+        z-index: 1;
+        transform-origin: left center;
+        transition: background 0.5s;
+    }
+
+    .arrow::after {
+        content: '';
+        position: absolute;
+        right: -6px;
+        top: -6px;
+        border: 8px solid transparent;
+        border-left: 10px solid #cbd5e0;
+    }
+
+    .logic-active .arrow { display: block; }
+
+    .arrow.firing {
+        background: #ed8936; /* Orange */
+        box-shadow: 0 0 10px #ed8936;
+        z-index: 5;
+    }
+    .arrow.firing::after { border-left-color: #ed8936; }
+
+    .arrow.step-1 { width: 65px; } 
+
+    .arrow.step-2 {
+        width: 140px; 
+        top: -45px;   
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        background: transparent;
+        border-top: 4px solid #cbd5e0;
+        height: 25px;
+    }
+    .arrow.step-2::after {
+        top: -3px; right: -8px;
+        border-left-color: #cbd5e0;
+        transform: rotate(20deg);
+    }
+    .arrow.step-2.firing {
+        border-top-color: #ed8936;
+        background: transparent;
+        box-shadow: none; 
+        filter: drop-shadow(0 0 4px #ed8936);
+    }
+    .arrow.step-2.firing::after { border-left-color: #ed8936; }
+
+    .arrow.step-strong {
+        width: 40px; top: -15px; background: transparent;
+        border-bottom: 4px solid #cbd5e0; height: 10px;
+    }
+    .arrow.step-strong::after { display: none; }
+    .arrow.step-strong.firing { border-bottom-color: #ed8936; box-shadow: none; }
+
+    /* --- History Log Box --- */
+    .history-container {
+        background: #2d3748;
+        color: white;
+        border-radius: 8px;
+        padding: 10px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .history-title {
+        font-size: 0.9rem;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 1px solid #4a5568;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        color: #a0aec0;
+    }
+
+    .history-list {
+        flex: 1;
+        overflow-y: auto;
+        font-family: monospace;
+        font-size: 0.85rem;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .history-list::-webkit-scrollbar { width: 6px; }
+    .history-list::-webkit-scrollbar-thumb { background: #4a5568; border-radius: 3px; }
+
+    .log-item {
+        padding: 5px;
+        border-radius: 4px;
+        animation: fadeIn 0.3s ease-in;
+    }
+    .log-fact { border-left: 3px solid #38a169; background: rgba(56, 161, 105, 0.1); }
+    .log-rule { border-left: 3px solid #ed8936; background: rgba(237, 137, 54, 0.1); }
+    .log-conclusion { border-left: 3px solid #4299e1; background: rgba(66, 153, 225, 0.1); font-weight: bold; }
+    .log-info { color: #a0aec0; text-align: center; font-style: italic; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- Controls --- */
+    .controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 15px;
+        background: #f7fafc;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .control-card {
+        background: white;
+        padding: 0.8rem;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+        text-align: center;
+    }
+    
+    .status-badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+    .status-off { background: #fed7d7; color: #c53030; }
+    .status-on { background: #c6f6d5; color: #2f855a; }
+
+    h3 { margin-top: 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem;}
+</style>
+</head>
+
+<body>
+
+<main>
+  <h2>Induction Visualizer</h2>
+  
+  <div class="note">
+      <p>Configure the Base Cases and Logic to see how truth propagates step-by-step.</p>
+<p> Goal: Prove $P(n)$ for all $n \ge 1$.</p>
+  </div>
+
+  <h3>1. Standard Induction</h3>
+  <p>Logic: $P(k) \implies P(k+1)$.</p>
+  
+  <div class="viz-wrapper">
+      <div class="viz-main">
+          <div class="viz-container"><div id="track-1" class="track"></div></div>
+          
+          <div class="controls">
+              <div class="control-card">
+                  <h4>Base Case A</h4>
+                  <p>Prove $P(1)$</p>
+                  <button id="btn-base-1a" onclick="sim1.toggleBaseA()">Push $P(1)$</button>
+                  <div id="status-base-1a" class="status-badge status-off">False</div>
+              </div>
+              <div class="control-card">
+                  <h4>Base Case B</h4>
+                  <p>Prove $P(2)$</p>
+                  <button id="btn-base-1b" onclick="sim1.toggleBaseB()">Push $P(2)$</button>
+                  <div id="status-base-1b" class="status-badge status-off">False</div>
+              </div>
+              <div class="control-card">
+                  <h4>Inductive Step</h4>
+                  <p>Prove $P(k) \implies P(k+1)$ for all $k\geq 1$</p>
+                  <button id="btn-step-1" onclick="sim1.toggleStep()">Connect Logic</button>
+                  <div id="status-step-1" class="status-badge status-off">Broken</div>
+              </div>
+              <div class="control-card" style="display:flex; align-items:center; justify-content:center;">
+                  <button class="restart-btn" onclick="sim1.fullReset()">🔄 Reset</button>
+              </div>
+          </div>
+      </div>
+      <div class="history-container">
+          <div class="history-title">Logic History</div>
+          <div id="log-1" class="history-list"><div class="log-info">Waiting for input...</div></div>
+      </div>
+  </div>
+
+
+  <h3>2. Two-Step Induction</h3>
+  <p>Logic: $P(k) \implies P(k+2)$.</p>
+
+  <div class="viz-wrapper">
+      <div class="viz-main">
+          <div class="viz-container"><div id="track-2" class="track"></div></div>
+          
+          <div class="controls">
+              <div class="control-card">
+                  <h4>Base Case A</h4>
+                  <p>Prove $P(1)$</p>
+                  <button id="btn-base-2a" onclick="sim2.toggleBaseA()">Prove $P(1)$</button>
+                  <div id="status-base-2a" class="status-badge status-off">False</div>
+              </div>
+              <div class="control-card">
+                  <h4>Base Case B</h4>
+                  <p>Prove $P(2)$</p>
+                  <button id="btn-base-2b" onclick="sim2.toggleBaseB()">Prove $P(2)$</button>
+                  <div id="status-base-2b" class="status-badge status-off">False</div>
+              </div>
+              <div class="control-card">
+                  <h4>Inductive Step</h4>
+                  <p>Prove $P(k) \implies P(k+2)$ for all $k\geq 1$</p>
+                  <button id="btn-step-2" onclick="sim2.toggleStep()">Connect Logic</button>
+                  <div id="status-step-2" class="status-badge status-off">Broken</div>
+              </div>
+              <div class="control-card" style="display:flex; align-items:center; justify-content:center;">
+                  <button class="restart-btn" onclick="sim2.fullReset()">🔄 Reset</button>
+              </div>
+          </div>
+      </div>
+      <div class="history-container">
+          <div class="history-title">Logic History</div>
+          <div id="log-2" class="history-list"><div class="log-info">Waiting for input...</div></div>
+      </div>
+  </div>
+
+
+  <h3>3. Strong Induction</h3>
+  <p>Logic: $(P(1) \dots P(k)) \implies P(k+1)$.<br>
+Constraint: This implication only works for $k \ge 2$.</p>
+
+  <div class="viz-wrapper">
+      <div class="viz-main">
+          <div class="viz-container"><div id="track-3" class="track"></div></div>
+          
+          <div class="controls">
+              <div class="control-card">
+                  <h4>Base Case A</h4>
+                  <p>Prove $P(1)$</p>
+                  <button id="btn-base-3a" onclick="sim3.toggleBaseA()">Prove $P(1)$</button>
+                  <div id="status-base-3a" class="status-badge status-off">False</div>
+              </div>
+              <div class="control-card">
+                  <h4>Base Case B</h4>
+                  <p>Prove $P(2)$</p>
+                  <button id="btn-base-3b" onclick="sim3.toggleBaseB()">Prove $P(2)$</button>
+                  <div id="status-base-3b" class="status-badge status-off">False</div>
+              </div>
+              <div class="control-card">
+                  <h4>Strong induction step</h4>
+                  <p>Prove $P(1),\dots,P(k)\implies P(k+1)$ for all $k\geq 2$</p>
+                  <button id="btn-step-3" onclick="sim3.toggleStep()">Connect Logic</button>
+                  <div id="status-step-3" class="status-badge status-off">Broken</div>
+              </div>
+              <div class="control-card" style="display:flex; align-items:center; justify-content:center;">
+                  <button class="restart-btn" onclick="sim3.fullReset()">🔄 Reset</button>
+              </div>
+          </div>
+      </div>
+      <div class="history-container">
+          <div class="history-title">Logic History</div>
+          <div id="log-3" class="history-list"><div class="log-info">Waiting for input...</div></div>
+      </div>
+  </div>
+
+</main>
+
+<footer>
+    <a href="index.html" class="home-link">🏠 Home</a>
+</footer>
+
+<script>
+// --- Helper: Render MathJax ---
+function typeSet(element) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+        // Only render the specific new element
+        MathJax.typesetPromise([element]).catch(err => console.log('MathJax Error:', err));
+    }
+}
+
+// ======================================================
+// CLASS: Simulation Engine
+// ======================================================
+class Simulation {
+    constructor(config) {
+        this.id = config.id;
+        this.type = config.type; 
+        this.startN = config.startN;
+        this.count = config.count;
+        this.stepSize = config.stepSize;
+        
+        this.logList = document.getElementById(`log-${this.id}`);
+        this.trackElem = document.getElementById(`track-${this.id}`);
+        
+        // State
+        this.baseA = false; 
+        this.baseB = false; 
+        this.stepActive = false;
+        this.isRunning = false;
+
+        this.initDOM();
+    }
+
+    initDOM() {
+        this.trackElem.innerHTML = '';
+        for (let i = 0; i < this.count; i++) {
+            let n = this.startN + i;
+            
+            let wrapper = document.createElement('div');
+            wrapper.className = 'domino-wrapper';
+
+            let d = document.createElement('div');
+            d.className = 'domino';
+            d.id = `d-${this.id}-${n}`;
+            d.innerHTML = `$P(${n})$`; 
+            wrapper.appendChild(d);
+
+            if (this.type !== 'strong' && i + this.stepSize < this.count) {
+                let arrow = document.createElement('div');
+                arrow.className = `arrow step-${this.stepSize}`;
+                arrow.id = `a-${this.id}-${n}`;
+                wrapper.appendChild(arrow);
+            }
+            if (this.type === 'strong' && i < this.count - 1) {
+                 let arrow = document.createElement('div');
+                 arrow.className = `arrow step-strong`;
+                 arrow.id = `a-${this.id}-${n}`;
+                 wrapper.appendChild(arrow);
+            }
+
+            this.trackElem.appendChild(wrapper);
+        }
+        // Render initial MathJax for dominoes
+        if (window.MathJax && window.MathJax.typesetPromise) {
+             MathJax.typesetPromise([this.trackElem]);
+        }
+    }
+
+    // --- Helpers ---
+    isFallen(n) {
+        const dom = document.getElementById(`d-${this.id}-${n}`);
+        return dom && dom.classList.contains('true');
+    }
+    setFallen(n) {
+        const dom = document.getElementById(`d-${this.id}-${n}`);
+        if(dom) dom.classList.add('true');
+    }
+
+    // --- Actions ---
+    toggleBaseA() { if(!this.isRunning) { this.baseA = !this.baseA; this.updateUI(); this.processLogic(); } }
+    toggleBaseB() { if(!this.isRunning) { this.baseB = !this.baseB; this.updateUI(); this.processLogic(); } }
+    toggleStep() { 
+        if(!this.isRunning) { 
+            this.stepActive = !this.stepActive; 
+            if(this.stepActive) this.trackElem.classList.add('logic-active');
+            else this.trackElem.classList.remove('logic-active');
+            this.updateUI(); 
+            this.processLogic(); 
+        } 
+    }
+
+    // --- Logging ---
+    clearLog() { this.logList.innerHTML = '<div class="log-info">Waiting for input...</div>'; }
+    
+    addLog(msg, type) {
+        if(this.logList.querySelector('.log-info')) { this.logList.innerHTML = ''; }
+        const div = document.createElement('div');
+        div.className = `log-item log-${type}`;
+        div.innerHTML = msg;
+        this.logList.appendChild(div);
+        typeSet(div); // Render MathJax in new log item
+        this.logList.scrollTop = this.logList.scrollHeight;
+    }
+
+    // --- MAIN LOGIC ---
+    async processLogic() {
+        this.isRunning = true;
+        
+        // 1. Base Cases
+        if (this.baseA && !this.isFallen(this.startN)) {
+            this.addLog(`Base Case $P(${this.startN})$ pushed.`, 'fact');
+            this.setFallen(this.startN);
+            await this.wait(800);
+        }
+        
+        let secondBaseIndex = this.startN + 1;
+        if (this.baseB && !this.isFallen(secondBaseIndex)) {
+            this.addLog(`Base Case $P(${secondBaseIndex})$ pushed.`, 'fact');
+            this.setFallen(secondBaseIndex);
+            await this.wait(800);
+        }
+
+        // 2. Logic Steps
+        if (this.stepActive) {
+            
+            if (this.type === 'strong') {
+                this.addLog(`<small>Constraint check: Rule only works for $k \\ge 2$ (targets $P(3)$ and up).</small>`, 'info');
+                await this.wait(800);
+            }
+
+            for(let pass = 0; pass < this.count; pass++) {
+                let changeMade = false;
+
+                // --- STANDARD / ODD-EVEN ---
+                if (this.type !== 'strong') {
+                    for (let i = 0; i < this.count - this.stepSize; i++) {
+                        let current = this.startN + i;
+                        let next = current + this.stepSize;
+
+                        if (this.isFallen(current) && !this.isFallen(next)) {
+                            this.highlightSingle(current);
+                            this.addLog(`Fact: We know $P(${current})$ is True.`, 'fact');
+                            await this.wait(1000);
+
+                            this.addLog(`Fact: We know $P(${current}) \\implies P(${next})$.`, 'rule');
+                            await this.wait(1000);
+
+                            this.setFallen(next);
+                            this.unhighlightSingle(current);
+                            this.addLog(`Result: Therefore $P(${next})$ becomes True.`, 'conclusion');
+                            
+                            await this.wait(1000);
+                            changeMade = true;
+                        }
+                    }
+                }
+
+                // --- STRONG INDUCTION ---
+                else {
+                    for (let i = 2; i < this.count; i++) {
+                        let target = this.startN + i; 
+                        if (this.isFallen(target)) continue;
+
+                        let allTrue = true;
+                        let preds = [];
+                        for (let p = this.startN; p < target; p++) {
+                            preds.push(p);
+                            if (!this.isFallen(p)) { allTrue = false; break; }
+                        }
+
+                        if (allTrue) {
+                            for(let p of preds) this.highlightStrong(p);
+                            this.addLog(`Fact: All $P(${this.startN}) \\dots P(${target-1})$ are True.`, 'fact');
+                            await this.wait(1200);
+
+                            this.addLog(`Fact: Predecessors $\\implies P(${target})$.`, 'rule');
+                            await this.wait(1000);
+
+                            this.setFallen(target);
+                            for(let p of preds) this.unhighlightStrong(p);
+                            this.addLog(`Result: Therefore $P(${target})$ is True.`, 'conclusion');
+                            
+                            await this.wait(1000);
+                            changeMade = true;
+                        }
+                    }
+                }
+                if(!changeMade) break; 
+            }
+        }
+        this.isRunning = false;
+    }
+
+    fullReset() {
+        this.baseA = false; this.baseB = false; this.stepActive = false; this.isRunning = false;
+        this.trackElem.classList.remove('logic-active');
+        this.trackElem.querySelectorAll('.domino').forEach(d => d.className = 'domino');
+        this.trackElem.querySelectorAll('.arrow').forEach(a => a.classList.remove('firing'));
+        this.updateUI();
+        this.clearLog();
+    }
+
+    updateUI() {
+        let prefix = this.id;
+        this.setBtn(`btn-base-${prefix}a`, `status-base-${prefix}a`, this.baseA);
+        this.setBtn(`btn-base-${prefix}b`, `status-base-${prefix}b`, this.baseB);
+        this.setBtn(`btn-step-${prefix}`, `status-step-${prefix}`, this.stepActive, "Active", "Broken");
+    }
+
+    setBtn(btnId, badgeId, isActive, onT="True", offT="False") {
+        const btn = document.getElementById(btnId);
+        const badge = document.getElementById(badgeId);
+        if(!btn) return;
+        if(isActive) { btn.style.background = "#38a169"; badge.className = "status-badge status-on"; badge.innerText=onT; }
+        else { btn.style.background = ""; badge.className = "status-badge status-off"; badge.innerText=offT; }
+    }
+
+    highlightSingle(n) {
+        document.getElementById(`d-${this.id}-${n}`).classList.add('premise');
+        let arr = document.getElementById(`a-${this.id}-${n}`);
+        if(arr) arr.classList.add('firing');
+    }
+    unhighlightSingle(n) {
+        document.getElementById(`d-${this.id}-${n}`).classList.remove('premise');
+        let arr = document.getElementById(`a-${this.id}-${n}`);
+        if(arr) arr.classList.remove('firing');
+    }
+    highlightStrong(n) { document.getElementById(`d-${this.id}-${n}`).classList.add('premise'); }
+    unhighlightStrong(n) { document.getElementById(`d-${this.id}-${n}`).classList.remove('premise'); }
+    
+    wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+}
+
+// --- Initialize ---
+// Reduced count to 6
+const sim1 = new Simulation({ id: 1, type: 'standard', startN: 1, count: 6, stepSize: 1 });
+const sim2 = new Simulation({ id: 2, type: 'oddEven',  startN: 1, count: 6, stepSize: 2 });
+const sim3 = new Simulation({ id: 3, type: 'strong',   startN: 1, count: 6, stepSize: 1 });
+
+</script>
+</body>
+</html>

@@ -252,15 +252,3 @@ footer {
    ========================================= */
 mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
 @keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Style for images inside explanations */
-.explanation-img {
-    display: block;
-    max-width: 100%;       /* Fits nicely on mobile */
-    height: auto;          
-    margin: 1rem auto 0;   /* Centers image */
-    border-radius: 4px;
-    border: 1px solid #e2e8f0;
-    padding: 5px;          /* Small frame */
-    background: white;
-}
