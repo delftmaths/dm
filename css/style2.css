@@ -1,4 +1,6 @@
-/* GLOBAL RESET & LAYOUT */
+/* =========================================
+   1. GLOBAL RESET & LAYOUT
+   ========================================= */
 * {
     box-sizing: border-box;
 }
@@ -9,7 +11,6 @@ body {
     color: #1a202c;
     background-color: #fdfdfd;
 
-    /* Kept compact, but slightly wider to accommodate 2 columns nicely */
     max-width: 650px; 
     margin: 0 auto;
     padding: 1rem;
@@ -19,7 +20,9 @@ body {
     min-height: 100vh;
 }
 
-main { flex: 1; }
+main {
+    flex: 1; /* Pushes footer to the bottom */
+}
 
 h1, h2 {
     color: #1a202c;
@@ -32,7 +35,9 @@ h1, h2 {
 h1 { font-size: 1.6rem; }
 h2 { font-size: 1.4rem; }
 
-/* --- SHARED BOX STYLES --- */
+/* =========================================
+   2. SHARED CARD STYLES
+   ========================================= */
 .prompt, .hint, .reveal, .finished, .error, .note {
     display: block;
     padding: 0.75rem 1rem;
@@ -43,46 +48,41 @@ h2 { font-size: 1.4rem; }
     text-decoration: none;
     color: #1a202c;
     font-size: 1rem;
+    
     background-color: white;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     border: 1px solid #e2e8f0;
     border-left-color: #cbd5e0;
+    
     animation: slideIn 0.3s ease-out;
 }
 
-/* Remove margins from paragraphs inside cards */
 .prompt p, .hint p, .reveal p, .finished p, .note p { margin: 0; }
 .prompt p + p, .hint p + p, .reveal p + p { margin-top: 0.5rem; }
 
-/* --- GRID LAYOUT FOR MENU --- */
+/* =========================================
+   3. HOMEPAGE GRID LAYOUT
+   ========================================= */
 ul {
     list-style: none;
     padding: 0;
     margin: 0 0 2rem 0;
-    
     display: grid;
-    gap: 0.75rem; /* Space between cards */
-    
-    /* DEFAULT: 1 Column (Mobile) */
+    gap: 0.75rem;
     grid-template-columns: 1fr;
 }
 
-/* TABLET/DESKTOP: 2 Columns */
 @media (min-width: 500px) {
-    ul {
-        grid-template-columns: 1fr 1fr; /* Exactly two equal columns */
-    }
+    ul { grid-template-columns: 1fr 1fr; }
 }
 
-li { display: flex; } /* Ensures card stretches to full height of grid cell */
+li { display: flex; }
 
-/* --- MENU CARD STYLING --- */
 .menu-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    
     padding: 1rem;
     background-color: white;
     border-radius: 6px;
@@ -101,30 +101,26 @@ li { display: flex; } /* Ensures card stretches to full height of grid cell */
     border-color: #bee3f8;
 }
 
-.menu-card strong {
-    display: block;
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
-}
-.menu-card span {
-    font-size: 0.85rem;
-    color: #718096;
-    line-height: 1.3;
-}
+.menu-card strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.menu-card span { font-size: 0.85rem; color: #718096; line-height: 1.3; }
 
-/* --- COLORS --- */
+/* =========================================
+   4. COLOR VARIANTS
+   ========================================= */
 .prompt   { background-color: #ebf8ff; border-left-color: #3182ce; border-color: #ebf8ff; }
 .hint     { background-color: #fffff0; border-left-color: #d69e2e; border-color: #fffff0; }
 .reveal   { background-color: #f0fff4; border-left-color: #38a169; border-color: #f0fff4; }
 .finished { background-color: #edf2f7; border-left-color: #718096; border-color: #e2e8f0; }
 .error    { background-color: #fff5f5; border-left-color: #e53e3e; }
 
-.card-proof  { border-left-color: #3182ce; } /* Blue */
-.card-quiz   { border-left-color: #38a169; } /* Green */
-.card-prereq { border-left-color: #805ad5; } /* Purple */
+.card-proof  { border-left-color: #3182ce; }
+.card-quiz   { border-left-color: #38a169; }
+.card-prereq { border-left-color: #805ad5; }
 .note        { background-color: #fffaf0; border-left-color: #d69e2e; border-color: #fbd38d; margin-bottom: 2rem;}
 
-/* --- BUTTONS --- */
+/* =========================================
+   5. INTERACTION BUTTONS
+   ========================================= */
 #buttons {
     margin-top: 1rem;
     padding-top: 1rem;
@@ -134,7 +130,7 @@ li { display: flex; } /* Ensures card stretches to full height of grid cell */
     flex-wrap: wrap;
 }
 
-button, .home-link {
+button {
     font-family: inherit;
     font-size: 1rem;
     font-weight: 600;
@@ -144,21 +140,115 @@ button, .home-link {
     cursor: pointer;
     transition: background-color 0.2s;
     text-align: center;
-    text-decoration: none;
     flex: 1; 
     min-width: 120px; 
 }
 
 #hint-btn { background-color: #ecc94b; color: #442a06; }
 #hint-btn:hover { background-color: #d69e2e; }
+
 #reveal-btn, .restart-btn { background-color: #3182ce; color: white; }
 #reveal-btn:hover { background-color: #2b6cb0; }
-button:disabled { background-color: #cbd5e0 !important; color: #718096 !important; cursor: not-allowed; opacity: 0.8; }
 
-footer { margin-top: 2rem; padding-top: 1rem; text-align: center; }
-.home-link { background-color: #718096; color: white; display: block; width: 100%; }
-.home-link:hover { background-color: #4a5568; }
+button:disabled {
+    background-color: #cbd5e0 !important;
+    color: #718096 !important;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
 
+/* =========================================
+   6. FOOTER & HOME BUTTON (Fixed!)
+   ========================================= */
+footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-top: 1px solid #e2e8f0;
+    
+    /* This ensures centering works perfectly */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-link {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    
+    /* Sizing */
+    width: 100%;
+    max-width: 280px; /* Nice wide button */
+    padding: 1rem 1.5rem;
+    
+    /* Visuals */
+    background-color: #4a5568;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 50px; /* Pill shape */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.home-link:hover {
+    background-color: #2d3748; 
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.home-link:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   7. QUIZ ANSWER STYLES
+   ========================================= */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.quiz-option {
+    background-color: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #1a202c;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.5;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: #3182ce;
+    background-color: #ebf8ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.quiz-option.correct { border-color: #38a169; background-color: #f0fff4; }
+.quiz-option.wrong { border-color: #e53e3e; background-color: #fff5f5; opacity: 0.8; }
+.quiz-option:disabled { cursor: default; transform: none; box-shadow: none; }
+.option-label { font-weight: bold; color: #3182ce; flex-shrink: 0; }
+
+/* =========================================
+   8. UTILITIES
+   ========================================= */
 mjx-container { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
-
 @keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
