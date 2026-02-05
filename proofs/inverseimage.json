@@ -3,7 +3,7 @@
   "steps": [
     {
       "prompt": "Let $f:X\\to Y$ be a function and $A,B\\subseteq Y$. To prove two sets are equal, we usually show double inclusion ($\\subseteq$ and $\\supseteq$). Let's start with $\\subseteq$. What next line can you write down 'for free'(by 'mathematical nonsense')?",
-      "hint": "If you want to prove $S\\subseteq T$, this is done by showing `for all $x\\in S$, we have $x\\in T$. How do we show a $\\forall$-statement?", 
+      "hint": "If you want to prove $S\\subseteq T$, this is done by showing 'for all $x\\in S$, we have $x\\in T$'. How do we show a $\\forall$-statement?", 
       "reveal": "Let $x\\in  f^{-1}(A \\cup B)$."
     },
     {
