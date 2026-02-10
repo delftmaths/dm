@@ -6,6 +6,39 @@
 <title>Quiz</title>
 <link rel="stylesheet" href="css/guided.css">
 
+<style>
+  /* --- COMPACT LAYOUT OVERRIDES --- */
+  
+  /* 1. Stop the main content from stretching and pushing the footer down */
+  body {
+    min-height: auto; /* Allow body to shrink to content height */
+    padding-bottom: 2rem; /* Reduce bottom padding */
+  }
+  
+  main {
+    flex: 0 0 auto; /* Don't grow to fill space */
+  }
+
+  /* 2. Bring the Footer closer to the content */
+  footer {
+    margin-top: 1rem !important; /* Override the large default margin */
+    padding-top: 0 !important;
+    border-top: none !important;
+  }
+
+  /* 3. Make the Next Button area tighter */
+  #action-area {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Optional: Ensure the Home button isn't too huge */
+  .home-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+</style>
+
 <script>
 window.MathJax = {
   tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
@@ -163,6 +196,8 @@ function handleAnswer(selectedIndex, correctIndex) {
     }
 
     nextBtn.style.display = "block";
+    
+    // UX Update: Scroll to the feedback so the Next button is visible
     feedbackElem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     renderMath();
 }
@@ -171,6 +206,7 @@ function handleAnswer(selectedIndex, correctIndex) {
 nextBtn.onclick = () => {
     currentQuestionIndex++;
     loadQuestion();
+    // Scroll back to top for the new question
     titleElem.scrollIntoView({ behavior: 'smooth' });
 };
 

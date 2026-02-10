@@ -3,15 +3,69 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <title>Guided Proof</title>
+
 <link rel="stylesheet" href="css/guided.css">
+
+<style>
+/* --- 1. Fixed & Slim Progress Bar --- */
+#progress-container {
+    position: fixed; /* Stick to top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px; /* Very slim to save space */
+    background-color: #e2e8f0;
+    border-radius: 0; /* Flat edges */
+    z-index: 2000; /* Ensure it stays on top of everything */
+    margin: 0;
+}
+
+#progress-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #3182ce;
+    transition: width 0.3s ease-in-out;
+}
+
+/* --- 2. Tighter Footer & Layout --- */
+body {
+    /* Reduce bottom padding. 
+       We only need enough so the footer isn't hidden behind the 
+       ~70px height of the sticky buttons. */
+    padding-bottom: 70px; 
+    
+    /* Add a tiny bit of top padding so the first title 
+       doesn't get covered by the progress bar */
+    padding-top: 15px; 
+}
+
+footer {
+    /* Reduce the gap between the proof content and the home button */
+    margin-top: 1.5rem; 
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    
+    /* Remove border if you want it to look cleaner/closer */
+    border-top: none; 
+    display: flex;
+    justify-content: center;
+}
+
+.home-link {
+    /* Make the button slightly more compact */
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    max-width: 200px;
+}
+</style>
 
 <script>
 window.MathJax = {
   tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-  startup: {
-    typeset: false // We will handle typesetting manually
-  }
+  // Simple config, we will handle scaling via CSS
+  startup: { typeset: false }
 };
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -22,8 +76,12 @@ window.MathJax = {
 <main>
   <h2 id="proof-title">Loading Proof...</h2>
   
-  <div id="steps-container"></div>
+  <div id="progress-container">
+      <div id="progress-fill"></div>
+  </div>
   
+  <div id="steps-container"></div>
+    
   <div id="buttons">
       <button id="hint-btn" disabled>Show Hint</button>
       <button id="reveal-btn" disabled>Reveal Step</button>
@@ -49,6 +107,7 @@ const hintBtn = document.getElementById("hint-btn");
 const revealBtn = document.getElementById("reveal-btn");
 const buttonsDiv = document.getElementById("buttons");
 const titleElem = document.getElementById("proof-title");
+const progressFill = document.getElementById("progress-fill"); // NEW reference
 
 // --- Helper: Robustly Render MathJax ---
 function renderMath() {
@@ -58,6 +117,15 @@ function renderMath() {
       console.log("MathJax not ready, retrying...");
       setTimeout(renderMath, 50);
   }
+}
+
+// --- Helper: Update Progress Bar ---
+function updateProgress() {
+    if (!proofData) return;
+    const total = proofData.steps.length;
+    // Calculate percentage
+    const percent = (currentStep / total) * 100;
+    progressFill.style.width = percent + "%";
 }
 
 // --- 1. Load Data ---
@@ -90,8 +158,9 @@ if (proofId) {
 
 // --- 2. Initialize Logic ---
 function initProof() {
-    titleElem.innerText = proofData.title; // Set Header Title
-    revealBtn.disabled = false; // Enable 'Reveal' button
+    titleElem.innerText = proofData.title; 
+    revealBtn.disabled = false; 
+    updateProgress(); // Initialize bar at 0%
     showPrompt();
 }
 
@@ -136,7 +205,6 @@ hintBtn.onclick = () => {
     
     hintBtn.disabled = true;
     
-    // UPDATED: Now scrolls to CENTER just like the Reveal button
     hintDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 };
@@ -153,6 +221,7 @@ revealBtn.onclick = () => {
     renderMath();
 
     currentStep++;
+    updateProgress(); // Update the bar
     showPrompt(); 
   }
   // Case B: Showing the full proof summary
@@ -163,6 +232,9 @@ revealBtn.onclick = () => {
       finalMsg.innerHTML = `<h3>${proofData.title}</h3>${proofData.fullProofHtml}`;
       stepsContainer.appendChild(finalMsg);
       
+      // Force bar to 100% when finished
+      progressFill.style.width = "100%"; 
+
       renderMath();
       finalMsg.scrollIntoView({ behavior: 'smooth' });
 

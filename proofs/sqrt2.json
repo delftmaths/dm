@@ -29,7 +29,7 @@
     {
       "prompt": "The fact that $a,b$ are both even does not currently give a contradiction. What should we add to this proof (and where) to ensure it does?",
       "hint": "Look back at where we defined $a$ and $b$. Is there a way to assume they are not both even there?",
-      "reveal": "When choosing integers $a$ and $b$ such that $\\sqrt{2}=a/b$, if both $a$ and $b$ are even, then $a/b=a'/b'$ where $a'=a/2$ and $b'=b/2$ are integers. We can repeatedly apply this until $a$ and $b$ are not both even."
+      "reveal": "When choosing integers $a$ and $b$ such that $\\sqrt{2}=a/b$, if both $a$ and $b$ are even, then $a/b=a'/b'$ where $a'=a/2$ and $b'=b/2$ are integers. We can repeatedly apply this until $a$ and $b$ are not both even. The easiest fix is to add the condition $\\gcd(a,b)=1$ to the initial assumption, which ensures that $a$ and $b$ are not both even."
     }
   ],
   "fullProofHtml": "<p>Assume for contradiction that $\\sqrt{2}$ is rational. Then there exist integers $a,b$ such that $\\sqrt{2} = \\frac{a}{b}$ and $\\gcd(a,b)=1$. </p><p>In particular, since the greatest common divisor between $a$ and $b$ is 1, they are not both even. Squaring gives $2 = \\frac{a^2}{b^2}$, so $a^2 = 2b^2$. Since $a^2$ is even, $a$ must be even. So $a = 2k$ for some integer $k$.</p><p> Hence $2b^2=a^2=(2k)^2=4k^2$ and so $b^2=2k^2$ is even. As above, since $b^2$ is even, $b$ must be even. This gives a contradiction with $a$ and $b$ not both being even. $\\square$</p>"

@@ -1,0 +1,11 @@
+{
+  "text": "How many distinct ways can you rearrange the letters of the word <strong>LEVEL</strong>?",
+  "choices": [
+    "$5! = 120$",
+    "$5! / 2! = 60$",
+    "$5! / (2! \\cdot 2!) = 30$",
+    "$2^5 = 32$"
+  ],
+  "correct": 2,
+  "explanation": "If all letters were unique ($L_1 E_1 V E_2 L_2$), there would be $5!$ arrangements. <br>However, swapping the two 'L's doesn't change the word, so we divide by $2!$. Swapping the two 'E's also doesn't change it, so we divide by another $2!$. <br>Result: $120 / 4 = 30$."
+},

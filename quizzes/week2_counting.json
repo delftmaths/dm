@@ -1,0 +1,122 @@
+{
+  "title": "Week 2: basic counting",
+  "questions": [
+    {
+      "text": "Which is bigger, $100!$ or $2^{100}$?",
+      "choices": [
+        "$100!$",
+        "$2^{100}$",
+        "The numbers are equal"
+      ],
+      "correct": 0,
+      "explanation": "When comparing $100!=100\\cdot 99 \\cdot 98 \\cdot \\dots$ to $2\\cdot 2 \\cdot 2\\cdot \\dots$, we see both multiply 100 numbers. The terms in $100!$ are clearly larger than 2 for almost all terms."
+    },
+    {
+      "text": "How many functions $f: \\{1, 2, 3\\} \\to \\{a, b\\}$ are there?",
+      "choices": [
+        "$3^2 = 9$",
+        "$2^3 = 8$",
+        "$3! = 6$",
+        "$2 \\cdot 3 = 6$"
+      ],
+      "correct": 1,
+      "explanation": "Exponent Rule: For each of the 3 elements in the domain, there are 2 choices in the codomain. <br>Total = $2 \\times 2 \\times 2 = 2^3 = 8$."
+    },
+    {
+      "text": "You want to form a committee of 3 students out of 7. How many options are there?",
+      "choices": [
+        "$7 \\cdot 6 \\cdot 5$",
+        "$7^3$",
+        "$(7 \\cdot 6 \\cdot 5)/(3\\cdot 2)$",
+        "None of the above"
+      ],
+      "correct": 2,
+      "explanation": "The number $7\\cdot 6\\cdot 5$ represents the number of ways to pick 3 students in a specific order. We overcount by the number of ways the committee of size 3 can be ordered, so we divide by $3! = 3 \\cdot 2 \\cdot 1$."
+    },
+    {
+      "text": "If 7 people meet at a party and everyone shakes hands, how many handshakes were made?",
+      "choices": [
+        "$42$",
+        "$21$",
+        "$49$",
+        "$7$"
+      ],
+      "correct": 1,
+      "explanation": "If all 7 people shake 6 hands, we find $7 \\times 6 = 42$. However, this counts every handshake twice (once for each person involved). So we divide by 2."
+    },
+    {
+      "text": "If you own 5 shirts, 3 pairs of trousers and 4 hats, how many possible outfits can you make?",
+      "choices": [
+        "$5+3+4$",
+        "$5 \\cdot 3\\cdot 4$",
+        "$5! \\cdot 3! \\cdot 4!$"
+      ],
+      "correct": 1,
+      "explanation": "By the Multiplication Rule, the total number of outfits is the product of the number of choices for each item: $5 \\times 3 \\times 4 = 60$."
+    },
+    {
+      "text": "How many 6-digit student numbers (digits 0-9) are there?",
+      "choices": [
+        "$10^6$",
+        "$6^{10}$",
+        "$\\binom{10}{6}$"
+      ],
+      "correct": 0,
+      "explanation": "For each of the 6 digits, we have 10 choices. So the answer is $10^6$ by the Exponent Rule."
+    },
+    {
+      "text": "There are 8 food items and you provide a strict ranking (e.g. A > B > ... > H). How many possible rankings are there?",
+      "choices": [
+        "$8^8$",
+        "$8!$",
+        "$2^8$",
+        "$\\binom{8}{8}$"
+      ],
+      "correct": 1,
+      "explanation": "This is a permutation of 8 distinct items. <br>You have 8 choices for the 1st spot, 7 for the 2nd, ..., 1 for the last. <br>Total = $8 \\times 7 \\times \\dots \\times 1 = 8!$."
+    },
+    {
+      "text": "How many number plates are there of the form (1 letter)-(2 digits)-(3 letters), such as M-11-ATH?",
+      "choices": [
+        "$26 \\cdot 10 \\cdot 26$",
+        "$26 + 100 + 26^3$",
+        "$(26+10)^6$",
+        "$26^4 \\cdot 100$"
+      ],
+      "correct": 3,
+      "explanation": "We use the Multiplication Rule for each part of the plate: <br>1. One letter: $26$ options.<br>2. Two digits: $10 \\times 10 = 100$ options.<br>3. Three letters: $26 \\times 26 \\times 26 = 26^3$ options.<br>Total: $26 \\times 100 \\times 26^3 = 26^4 \\cdot 100$."
+    },
+    {
+  "text": "How many 3-digit PIN codes (000 to 999) contain at least one digit 7?",
+  "choices": [
+    "$3 \\cdot 10^2$",
+    "$10^3 - 1$",
+    "$10^3 - 9^3$",
+    "$7 \\cdot 10 \\cdot 10$"
+  ],
+  "correct": 2,
+  "explanation": "<strong>Complement Rule:</strong> It is easier to count the PINs that have <em>no</em> 7s and subtract that from the total. <br>Total PINs = $10^3 = 1000$. <br>PINs with no 7 (using digits 0-6, 8-9) = $9 \\times 9 \\times 9 = 9^3$. <br>Answer: $1000 - 729 = 271$."
+},
+{
+  "text": "A club has 10 members. They need to choose a President and a Vice-President (which cannot be the same person). How many ways can this be done?",
+  "choices": [
+    "$10\\cdot 9 /2 = 45$",
+    "$10 \\cdot 9 = 90$",
+    "$2^{10} = 1024$",
+    "$10 \\cdot 10 = 100$"
+  ],
+  "correct": 1,
+  "explanation": "Since the order now matters, we do not divide by 2. We have 10 choices for President, and then 9 remaining choices for VP. <br>Total = $10 \\times 9 = 90$."
+},
+{
+  "text": "What does the binomial coefficient $\\binom{n}{k}$ count?",
+  "choices": [
+    "The number of ordered lists of length $k$ from $n$ items.",
+    "The number of subsets of size $k$ from a set of $n$ items.",
+    "The number of ways to partition a set of $n$ items into $k$ piles.",
+    "The number of functions from a set of size $k$ to a set of size $n$."
+  ],
+  "correct": 1,
+  "explanation": "<strong>Definition:</strong> $\\binom{n}{k}$ counts the number of ways to choose $k$ distinct elements from a set of $n$ elements where <strong>order does not matter</strong>."
+}]
+}
