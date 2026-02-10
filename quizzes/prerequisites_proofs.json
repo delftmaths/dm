@@ -75,7 +75,7 @@
         "We cannot remove horses from a set.",
         "The problem is in the last two sentences."
       ],
-      "correct": 2,
+      "correct": 3,
       "explanation": "The last two sentences uses that the two sets <strong>overlap</strong> in order to transfer the colour property. When $n=1$, we move to $n+1=2$ horses: $\\{H_1, H_2\\}$.<br>• Removing $H_2$ leaves $\\{H_1\\}$.<br>• Removing $H_1$ leaves $\\{H_2\\}$.<br>There is <strong>no middle horse</strong> to connect them! The induction step fails when moving from $n=1$ to $n=2$."
     }
   ]

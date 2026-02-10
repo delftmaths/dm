@@ -1,8 +1,29 @@
 /* =========================================
    1. GLOBAL RESET & LAYOUT
    ========================================= */
-* {
-    box-sizing: border-box;
+
+* { box-sizing: border-box; }
+
+html {
+    /* 1. Base Desktop Size */
+    font-size: 100%; /* Approx 16px */
+    scroll-behavior: smooth;
+}
+
+/* 2. Tablet Scaling (Shrink everything to 95%) */
+@media (max-width: 768px) {
+    html { font-size: 95%; }
+}
+
+
+/* 3. Mobile Scaling (Shrink everything to 85%) */
+@media (max-width: 480px) {
+    html { font-size: 85%; }
+}
+
+/* 4. Tiny Screen Scaling (Shrink everything to 80%) */
+@media (max-width: 360px) {
+    html { font-size: 80%; }
 }
 
 body {
@@ -35,6 +56,21 @@ h1, h2 {
 h1 { font-size: 1.6rem; }
 h2 { font-size: 1.4rem; }
 
+/* 3. MATHJAX SCALING */
+mjx-container {
+    overflow-x: auto; 
+    overflow-y: hidden;
+    max-width: 100%;
+}
+
+/* Specifically target displayed equations ($$ ... $$) to shrink them further on mobile */
+@media (max-width: 480px) {
+    mjx-container[display="true"] {
+        /* Force the math font to be even smaller than the body text */
+        font-size: 85% !important; 
+        margin: 0.5rem 0 !important;
+    }
+}
 /* =========================================
    2. SHARED CARD STYLES
    ========================================= */
