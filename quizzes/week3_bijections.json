@@ -1,0 +1,67 @@
+{ "title": "Week 2+3: practising with bijections from the lecture notes",
+  "questions": [
+     { "text": "Under the bijection from the (subsets of $[n]$) to $\\{0,1\\}^n$ that maps a subset $S$ to $x\\in\\{0,1\\}^n$ with $x_i = 1$ if $i \\in S$, and 0 otherwise, what does the subset of $\\{1\\}$ map to?",
+      "choices": [
+        "$(1, 1, \\dots, 1)$",
+        "$(0, 0, \\dots, 0)$",
+        "$(1, 0, \\dots, 0)$",
+        "$(0, 0, \\dots, 1)$"
+      ],
+      "correct": 2,
+      "explanation": "The $i$-th bit is 1 if $i \\in S$ and 0 otherwise. If only the element 1 is in the set, only the first bit is 1, and the rest are 0. This gives $(1, 0, \\dots, 0)$."
+},
+    {
+      "text": "What decimal number does the binary sequence $(1, 0, 1, 1)$ represent in the mapping described in the course?",
+      "choices": [
+        "11",
+        "13",
+        "14",
+        "15"
+      ],
+      "correct": 0,
+      "explanation": "The binary sequence $(1, 0, 1, 1)$ represents $1 \\cdot 2^3 + 0 \\cdot 2^2 + 1 \\cdot 2^1 + 1 \\cdot 2^0 = 8 + 0 + 2 + 1 = 11$."
+    },
+    {
+      "text": "How many digits (bits) are needed to write the number $2^n$ in binary notation?",
+      "choices": [
+        "$n$",
+        "$n+1$",
+        "$2^n$",
+        "$n-1$"
+      ],
+      "correct": 1,
+      "explanation": "In binary notation, $2^0 = 1$ (1 digit), $2^1 = 10$ (2 digits), $2^2 = 100$ (3 digits). In general, $2^n$ is written as a '1' followed by $n$ zeros, requiring exactly $n+1$ digits."
+    },
+    {
+      "text": "When using the Stars-and-Bars method to distribute identical presents to children, what does it mean if an arrangement contains two bars directly next to each other (e.g., $\\star | | \\star \\star$)?",
+      "choices": [
+        "One child receives zero presents.",
+        "One child receives two presents.",
+        "Two children share a present."
+      ],
+      "correct": 0,
+      "explanation": "The stars represent presents and the bars divide the presents among the children. The space between two adjacent bars represents a specific child's allocation. If there are no stars between them, that child gets 0 presents."
+    },
+        {
+      "text": "Under the same bijections between Stars-and-Bars and presents being given to children, what configuration corresponds to child 1 getting 2 presents, child 2 getting 1 presents, and child 3 getting 0 presents?",
+      "choices": [
+        "$\\star \\star | \\star |$",
+        "$\\star | \\star | \\star$",
+        "$\\star \\star | | \\star$"
+      ],
+      "correct": 0,
+      "explanation": "There need to be two stars before the first divider (for child 1), one star between the first and second divider (for child 2), and no stars after the second divider (for child 3). This gives $\\star \\star | \\star |$."
+    },
+    {
+      "text": "Consider the bijection between Stars-and-Bars configurations and non-decreasing integer sequences $1 \\leq x_1 \\leq \\dots \\leq x_n \\leq k$. Which integer sequence corresponds to the star-bar arrangement $\\star \\star | | \\star | \\star \\star$ ?",
+      "choices": [
+        "$(1, 1, 3, 4, 4)$",
+        "$(2, 0, 1, 2)$",
+        "$(1, 1, 2, 4, 4)$",
+        "$(2, 2, 3, 5, 5)$"
+      ],
+      "correct": 0,
+      "explanation": "In this bijection, each star represents an element in the sequence, and its value is determined by the 'bin' it is in (which is $1$ plus the number of bars to its left). The first two stars have $0$ bars to their left (value $1+0=1$). The third star has $2$ bars to its left (value $1+2=3$). The last two stars have $3$ bars to their left (value $1+3=4$). The sequence is $(1, 1, 3, 4, 4)$. Note that $(2,0,1,2)$ just counts the stars per bin, which is not the non-decreasing sequence itself!"
+    }
+]
+}

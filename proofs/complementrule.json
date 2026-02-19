@@ -1,0 +1,31 @@
+{
+  "title": "Guided Proof: 3-Colouring with All Colours",
+  "steps": [
+    {
+      "prompt": "We want to find the number of ways to colour $n$ different objects with 3 colours (say Red, Green, Blue) such that <strong>every colour is used at least once</strong>.<br><br>First, let's ignore the restriction. If we can use any colour for any object without rules, how many total colourings are there?",
+      "hint": "Each of the $n$ objects has 3 independent choices.",
+      "reveal": "Without restrictions, there are $3^n$ possible colourings."
+    },
+    {
+      "prompt": "Now we use the <strong>Complement Rule</strong>. We need to subtract the 'bad' colourings where 1 or more colours are missing.<br><br>Let's count the simplest bad case first: How many colourings use <strong>exactly 1 colour</strong>?",
+      "hint": "If a colouring uses exactly 1 colour, all objects must be exactly the same colour.",
+      "reveal": "There are exactly 3 ways to use only 1 colour (all Red, all Green, or all Blue)."
+    },
+    {
+      "prompt": "Next, let's count the colourings that use <strong>exactly 2 colours</strong>. Suppose we only use Red and Green. How many valid ways are there to do this (making sure we actually use both)?",
+      "hint": "There are $2^n$ ways to colour with Red and Green, but this includes the cases where everything is Red or everything is Green.",
+      "reveal": "For a specific pair of colours (like Red and Green), there are $2^n$ combinations. But we must subtract the 2 single-colour cases (all Red, all Green). So there are $2^n - 2$ ways."
+    },
+    {
+      "prompt": "How many total ways are there to use <strong>exactly 2 colours</strong> across all possible pairs of colours?",
+      "hint": "How many ways can you choose a pair of colours out of 3?",
+      "reveal": "There are 3 possible pairs of colours: (R,G), (R,B), and (G,B). So the total number of exactly 2-colour combinations is $3 \\times (2^n - 2)$."
+    },
+    {
+      "prompt": "Finally, apply the Complement Rule! We take the total unrestricted colourings and subtract the bad ones (exactly 1 colour AND exactly 2 colours). What is the final formula?",
+      "hint": "Total - (Exactly 1 colour) - (Exactly 2 colours).",
+      "reveal": "The final formula is: $3^n - 3 - 3(2^n - 2) = 3^n - 3 \\cdot 2^n + 3$. This completes the derivation!"
+    }
+  ],
+  "fullProofHtml": "<p><strong>Problem:</strong> What is the number of ways to colour $n$ different objects with $3$ different colours if every colour must be used at least once?</p><p><strong>Derivation using the Complement Rule:</strong></p><p>First, the total number of ways to 3-colour $n$ objects without any constraints is $3^n$.</p><p>From this total, we must subtract the number of \"bad\" colourings that do not use all 3 colours. A colouring is bad if it uses exactly 1 colour, or exactly 2 colours.</p><p><strong>Exactly 1 colour:</strong> There are $3$ ways to do this (all objects get colour 1, all get colour 2, or all get colour 3).</p><p><strong>Exactly 2 colours:</strong> There are $\\binom{3}{2} = 3$ ways to choose which two colours to use. For any specific pair of colours, there are $2^n$ ways to assign them. However, $2$ of these assignments use only a single colour. So, there are $2^n - 2$ ways to use <em>exactly</em> those two colours. Multiplying by the 3 possible pairs, we get $3(2^n - 2)$ ways.</p><p>Subtracting these bad cases from the total gives the final answer:</p><p>\\[ 3^n - (3 + 3(2^n - 2)) = 3^n - 3 \\cdot 2^n + 3. \\]</p><p>$\\square$</p>"
+}

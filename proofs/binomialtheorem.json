@@ -1,0 +1,31 @@
+{
+  "title": "Guided Proof: The Binomial Theorem",
+  "steps": [
+    {
+      "prompt": "We want to prove the Binomial Theorem by induction: $(x+y)^n = \\sum_{k=0}^n \\binom{n}{k}x^ky^{n-k}$.<br><br>Let's start with the base case. What happens when $n=1$?",
+      "hint": "Plug $n=1$ into both the left side $(x+y)^1$ and the right side (the sum).",
+      "reveal": "For $n=1$, the left side is $(x+y)^1 = x+y$. The right side is $\\binom{1}{0}x^0y^1 + \\binom{1}{1}x^1y^0 = y + x$. Both sides match!"
+    },
+    {
+      "prompt": "Now for the Induction Step. Assume the theorem holds for a given integer $n$. We want to prove it holds for $n+1$.<br><br>How can we rewrite $(x+y)^{n+1}$ to use our induction hypothesis?",
+      "hint": "Split off one factor of $(x+y)$.",
+      "reveal": "We can write it as: $(x+y)^{n+1} = (x+y) \\cdot (x+y)^n$. By the induction hypothesis, this is $(x+y) \\sum_{k=0}^{n} \\binom{n}{k}x^k y^{n-k}$."
+    },
+    {
+      "prompt": "If we expand the multiplication, we get two separate sums: one multiplied by $x$, and one multiplied by $y$.<br><br>What do these two sums look like?",
+      "hint": "Multiply $x$ into the sum by increasing the power of $x$ by 1. Do the same for $y$.",
+      "reveal": "The expansion gives: $\\sum_{k=0}^n \\binom{n}{k}x^{k+1}y^{n-k} \\quad + \\quad \\sum_{k=0}^n \\binom{n}{k}x^ky^{n+1-k}$."
+    },
+    {
+      "prompt": "To combine these two sums, we want the exponents of $x$ and $y$ to match. Let's shift the index in the first sum by replacing $k$ with $k-1$.<br><br>What does the first sum look like after this index shift?",
+      "hint": "If $k$ goes from $0$ to $n$, then the new index will go from $1$ to $n+1$. Substitute $k$ with $k-1$ inside the sum.",
+      "reveal": "The first sum becomes: $\\sum_{k=1}^{n+1} \\binom{n}{k-1}x^ky^{n+1-k}$."
+    },
+    {
+      "prompt": "Now both sums share the term $x^ky^{n+1-k}$. If we group the terms together for $k$ from $1$ to $n$, we get the coefficient $\\left[ \\binom{n}{k-1} + \\binom{n}{k} \\right]$.<br><br>What known mathematical identity simplifies this?",
+      "hint": "This is a famous rule from Pascal's Triangle!",
+      "reveal": "Pascal's Identity! $\\binom{n}{k-1} + \\binom{n}{k} = \\binom{n+1}{k}$. <br><br>This perfectly matches the required coefficients for $(x+y)^{n+1}$, completing the inductive step and the proof!"
+    }
+  ],
+  "fullProofHtml": "<p><strong>Theorem (Binomial Theorem):</strong> For all $n \\in \\mathbb{Z}_{\\geq 0}$ and $x,y \\in \\mathbb{R}$, \\[ (x+y)^n = \\sum_{k=0}^n \\binom{n}{k}x^ky^{n-k} \\]</p><p><strong>Proof by Induction:</strong></p><p><strong>Base Case ($n=1$):</strong> $(x+y)^1 = x+y$. The right-hand side is $\\binom{1}{0}x^0y^1 + \\binom{1}{1}x^1y^0 = y + x$. The base case holds.</p><p><strong>Inductive Step:</strong> Assume the theorem holds for some integer $n \\geq 1$. We evaluate $(x+y)^{n+1}$:</p><p>\\[ (x+y)^{n+1} = (x+y)(x+y)^n = (x+y)\\sum_{k=0}^{n} \\binom{n}{k}x^k y^{n-k} \\]</p><p>Expanding the brackets gives two sums:</p><p>\\[ x \\sum_{k=0}^n \\binom{n}{k}x^ky^{n-k} + y \\sum_{k=0}^n \\binom{n}{k}x^ky^{n-k} = \\sum_{k=0}^n \\binom{n}{k}x^{k+1}y^{n-k} + \\sum_{k=0}^n \\binom{n}{k}x^ky^{n+1-k} \\]</p><p>We re-index the first sum by letting $k$ become $k-1$. The limits change from $k=0 \\dots n$ to $k=1 \\dots n+1$:</p><p>\\[ \\sum_{k=1}^{n+1} \\binom{n}{k-1}x^{k}y^{n+1-k} \\]</p><p>Now we combine the two sums. Extracting the $k=n+1$ term from the first sum ($x^{n+1}$) and the $k=0$ term from the second sum ($y^{n+1}$), we combine the overlapping terms for $k=1 \\dots n$:</p><p>\\[ x^{n+1} + y^{n+1} + \\sum_{k=1}^n \\left( \\binom{n}{k-1} + \\binom{n}{k} \\right) x^ky^{n+1-k} \\]</p><p>Applying Pascal's Identity, $\\binom{n}{k-1} + \\binom{n}{k} = \\binom{n+1}{k}$, we obtain:</p><p>\\[ x^{n+1} + y^{n+1} + \\sum_{k=1}^n \\binom{n+1}{k} x^ky^{n+1-k} = \\sum_{k=0}^{n+1}\\binom{n+1}{k}x^ky^{n+1-k} \\]</p><p>This is exactly the formula for $n+1$, which completes the proof by induction! $\\blacksquare$</p>"
+}
