@@ -1,4 +1,7 @@
 {
+  "title": "Week 3: Counting continued",
+  "questions": [
+    {
   "text": "How many distinct ways can you rearrange the letters of the word <strong>LEVEL</strong>?",
   "choices": [
     "$5! = 120$",
@@ -9,3 +12,115 @@
   "correct": 2,
   "explanation": "If all letters were unique ($L_1 E_1 V E_2 L_2$), there would be $5!$ arrangements. <br>However, swapping the two 'L's doesn't change the word, so we divide by $2!$. Swapping the two 'E's also doesn't change it, so we divide by another $2!$. <br>Result: $120 / 4 = 30$."
 },
+    {
+      "text": "You want to send exactly one postcard to each of 12 friends. The shop has 3 kinds of postcards (in infinite supply). How many ways can you send them?",
+      "choices": [
+        "$12^3$",
+        "$3^{12}$",
+        "$\\binom{12}{3}$",
+        "$3 \\times 12$"
+      ],
+      "correct": 1,
+      "explanation": "For each of the 12 friends, you have exactly 3 independent choices of which card to send. By the multiplication rule, this is $3 \\times 3 \\times \\dots \\times 3 = 3^{12}$."
+    },
+    {
+      "text": "What if you still want to send exactly one postcard to each of 12 friends, but the shop only has exactly 4 copies of each of the 3 kinds of postcards?",
+      "choices": [
+        "$3^{12}$",
+        "$\\binom{12}{3}$",
+        "$\\frac{12!}{(4!)^3}$",
+        "$12!$"
+      ],
+      "correct": 2,
+      "explanation": "You are dividing the 12 friends into 3 groups of 4 (each group gets a specific card type). This is a classic multinomial coefficient: $\\binom{12}{4,4,4} = \\frac{12!}{4!4!4!}$."
+    },
+    {
+      "text": "You want to send postcards to 12 friends. There are 3 kinds of cards in unlimited supply. If you want to send one or more cards to each friend (but no duplicate cards to the same friend), how many ways can you do this?",
+      "choices": [
+        "$7^{12}$",
+        "$3^{12}$",
+        "$8^{12}$",
+        "$12^7$"
+      ],
+      "correct": 0,
+      "explanation": "For each friend, you choose a non-empty subset of the 3 available card types. There are $2^3 = 8$ total subsets. We subtract the 1 empty set (since everyone must get at least one card), leaving 7 choices per friend. For 12 friends, this is $7^{12}$."
+    },
+    {
+      "text": "How many rearrangements are there of the word UNUSUAL in which the three U's are strictly consecutive (e.g., SNLUUUA)?",
+      "choices": [
+        "$7!$",
+        "$\\frac{7!}{3!}$",
+        "$5!$",
+        "$\\frac{5!}{3!}$"
+      ],
+      "correct": 2,
+      "explanation": "Treat the block of three U's ('UUU') as a single letter. We then need to arrange 5 distinct objects in total: 'UUU', 'N', 'S', 'A', 'L'. This can be done in exactly $5!$ ways."
+    },
+    {
+      "text": "In how many ways can 4 indistinguishable balls be distributed over 4 distinguishable boxes?",
+      "choices": [
+        "$\\binom{8}{4}$",
+        "$\\binom{7}{3}$",
+        "$4^4$",
+        "$4!$"
+      ],
+      "correct": 1,
+      "explanation": "This is a <strong>Stars-and-Bars</strong> problem. We have $n=4$ balls (stars) and $k=4$ boxes, needing $k-1 = 3$ dividers (bars). We choose 3 positions out of $4+3=7$ total positions, giving $\\binom{7}{3}$."
+    },
+    {
+      "text": "By plugging $x=1$ and $y=-1$ into the Binomial Theorem, what is the value of the alternating sum $\\sum_{k=0}^n (-1)^k \\binom{n}{k}$ for $n \\geq 1$?",
+      "choices": [
+        "$2^n$",
+        "$1$",
+        "$0$",
+        "$n!$"
+      ],
+      "correct": 2,
+      "explanation": "The Binomial Theorem states $(x+y)^n = \\sum_{k=0}^n \\binom{n}{k}x^ky^{n-k}$. If we set $x=1$ and $y=-1$, the left side evaluates simply to $(1 - 1)^n = 0^n = 0$."
+    },
+    {
+      "text": "A drawer contains many pairs of socks in 4 different colors (black, white, red, green). How many single socks do you need to take out blindly to guarantee you have at least two socks of the same color?",
+      "choices": [
+        "$4$",
+        "$5$",
+        "$8$",
+        "$9$"
+      ],
+      "correct": 1,
+      "explanation": "By the <strong>Pigeonhole Principle</strong>, the 'boxes' are the 4 available colors. If you pick $4+1 = 5$ socks (the 'pigeons'), at least two of them must end up in the same box (color)."
+    },
+    {
+      "text": "(+) A positive integer is 'decreasing' if its digits are strictly decreasing (e.g., 972 and 1 are decreasing, 22 is not). How many decreasing positive integers exist?",
+      "choices": [
+        "$10!-9!$",
+        "$2^{10} - 2$",
+        "$\\binom{10}{2}$",
+        "$9!$"
+      ],
+      "correct": 1,
+      "explanation": "This is a more difficult question since the reformulation is more difficult to see. Every subset of the digits $\\{0, 1, \\dots, 9\\}$ forms exactly one valid decreasing sequence when sorted, except the empty set $\\emptyset$ and the set $\\{0\\}$ (since a positive integer cannot be empty or just '0'). There are $2^{10}$ subsets in total, minus those 2 invalid ones, giving $2^{10} - 2$."
+    },
+    {
+      "text": "You have 10 identical pennies to distribute among 4 children. However, you want to be somewhat fair, so every child must receive AT LEAST one penny. How many ways can you distribute them?",
+      "choices": [
+        "$\\binom{13}{3}$",
+        "$\\binom{9}{3}$",
+        "$\\binom{10}{4}$",
+        "$4^6$"
+      ],
+      "correct": 1,
+      "explanation": "First, fulfill the restriction by giving 1 penny to each of the 4 children. You now have $10 - 4 = 6$ identical pennies left to distribute freely among the 4 children. Using Stars-and-Bars with $n=6$ and $k=4$, we get $\\binom{6+4-1}{4-1} = \\binom{9}{3}$."
+    },
+    {
+      "text": "(+) When rolling five standard 6-sided dice, you record the outcome as a non-decreasing sequence (for example: 1, 1, 3, 4, 5). How many different outcomes are possible?",
+      "choices": [
+        "$\\binom{6}{5}$",
+        "$6^5$",
+        "$\\binom{10}{5}$",
+        "$5^6$"
+      ],
+      "correct": 2,
+      "explanation": "The reformulation to <strong>Stars-and-Bars</strong> here is also difficult to spot but possible! You can think of the 6 possible numbers on a die as 6 distinguishable 'bins'. The 5 dice you roll act as 5 identical 'balls' distributed into these bins. With $n=5$ and $k=6$, the formula gives $\\binom{5+6-1}{6-1} = \\binom{10}{5}$."
+    }
+  ]
+}

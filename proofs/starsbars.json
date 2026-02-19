@@ -1,0 +1,26 @@
+{
+  "title": "Combinatorial Proof: Stars-and-Bars",
+  "steps": [
+    {
+      "prompt": "We want to find the number of ways to distribute $n$ identical presents (stars) among $k$ children (bins). <br><br>Imagine placing all $n$ presents in a single straight line. To divide them among the $k$ children, we can place dividers (bars) between the presents. <br><br>How many dividers do we need to split the presents into exactly $k$ groups?",
+      "hint": "Think of cutting a piece of string. If you want 2 pieces, you make 1 cut. If you want 3 pieces, you make 2 cuts.",
+      "reveal": "We need exactly $k-1$ dividers. For example, to divide the presents among 3 children, we need 2 dividers to create 3 sections."
+    },
+    {
+      "prompt": "Excellent! Now imagine the $n$ presents (stars) and the $k-1$ dividers (bars) laid out together in a sequence. <br><br>How many total objects (positions) are there in this sequence?",
+      "hint": "Just add the number of presents and the number of dividers together.",
+      "reveal": "There are $n$ presents and $k-1$ dividers, so there are $n + (k-1) = n + k - 1$ total positions in the sequence."
+    },
+    {
+      "prompt": "Every unique distribution of presents corresponds to a unique arrangement of these stars and bars. <br><br>Since the presents are identical and the dividers are identical, how can we mathematically choose an arrangement?",
+      "hint": "Out of the total number of positions, we just need to pick which positions will hold the dividers (or alternatively, which will hold the presents).",
+      "reveal": "We have $n + k - 1$ total positions. We must choose $k-1$ of these positions to place our dividers. The rest will automatically be presents."
+    },
+    {
+      "prompt": "Using binomial coefficients, what is the final formula for the number of ways to distribute the $n$ identical presents among $k$ children?",
+      "hint": "How do you write 'choose $k-1$ items out of $n+k-1$ items'?",
+      "reveal": "The number of ways is $\\binom{n+k-1}{k-1}$. Note that this is mathematically identical to choosing the positions for the presents: $\\binom{n+k-1}{n}$. This completes the proof!"
+    }
+  ],
+  "fullProofHtml": "<p><strong>Theorem (Stars-and-Bars):</strong> The number of ways to divide $n$ indistinguishable objects among $k$ distinguishable bins is $\\binom{n+k-1}{k-1}$.</p><p><strong>Proof:</strong></p><p>Suppose we want to distribute $n$ identical presents to $k$ children. We can represent the presents as a line of $n$ stars ($\\star$). To divide these stars into $k$ separate groups (one for each child), we can insert dividers, or bars ($|$), into the line.</p><p>To create $k$ groups, we need exactly $k-1$ dividers. For example, if $n=5$ and $k=3$, an arrangement like $\\star \\star | \\star | \\star \\star$ means the first child gets 2 presents, the second gets 1, and the third gets 2. Two adjacent bars (like $| |$) would mean the child in between gets 0 presents, which is perfectly valid.</p><p>Any specific distribution is uniquely determined by the arrangement of the $n$ stars and $k-1$ bars. Thus, we have a total sequence of length:</p><p>\\[ \\text{Total positions} = n + (k-1) = n + k - 1 \\]</p><p>To form a valid arrangement, we simply need to choose exactly $k-1$ positions out of the $n+k-1$ total positions to place our bars (the remaining $n$ positions will be filled with stars). </p><p>The number of ways to choose these positions is given by the binomial coefficient: $\\binom{n+k-1}{k-1}$. $\\blacksquare$</p>"
+}

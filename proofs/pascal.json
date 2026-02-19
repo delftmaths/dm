@@ -1,0 +1,31 @@
+{
+  "title": "Combinatorial Proof: Pascal's Identity",
+  "steps": [
+    {
+      "prompt": "We want to prove Pascal's Identity: $\\binom{n}{k} = \\binom{n-1}{k-1} + \\binom{n-1}{k}$.<br><br>We will try do this by a storyline proof. First, what does the left side, $\\binom{n}{k}$, represent combinatorially?",
+      "hint": "In class, we considered forming a committee of students. What are $n$ and $k$ in that context?",
+      "reveal": "$\\binom{n}{k}$ represents the total number of subsets of size $k$ of a set of size $n$. For example, the number of ways to choose a committee of size $k$ from a total of $n$ students."
+    },
+    {
+      "prompt": "Now, let's look at the $n$ students (or elements) differently to explain the right side of the equation. Imagine the $n$ elements are $n-1$ students and $1$ dog. The total is still $n$.<br><br>How can we divide the task of choosing our committee of size $k$ into two mutually exclusive cases?",
+      "hint": "Focus on whether the dog is selected for the committee or not.",
+      "reveal": "We can split all possible committees into two groups:<br>Case 1: The dog is <strong>in</strong> the committee.<br>Case 2: The dog is <strong>not in</strong> the committee."
+    },
+    {
+      "prompt": "Let's count Case 1: The dog is <strong>in</strong> the committee. How many ways are there to choose the rest of the committee?",
+      "hint": "Since the dog takes up 1 spot, how many spots are left to fill? And how many students are left to choose from?",
+      "reveal": "If the dog is included, we need to pick $k-1$ more members from the remaining $n-1$ students. There are $\\binom{n-1}{k-1}$ ways to do this."
+    },
+    {
+      "prompt": "Now let's count Case 2: The dog is <strong>not in</strong> the committee. How many ways are there to form the committee now?",
+      "hint": "We still need $k$ members, but we can only pick from the regular students.",
+      "reveal": "If the dog is not included, we must pick all $k$ members from the $n-1$ regular students. There are $\\binom{n-1}{k}$ ways to do this."
+    },
+    {
+      "prompt": "How do we combine Case 1 and Case 2 to finish the proof?",
+      "hint": "Since the two cases don't overlap, what rule from basic counting should we use?",
+      "reveal": "By the <strong>Addition Rule</strong>, the total number of committees is the sum of the two cases. Therefore, $\\binom{n}{k} = \\binom{n-1}{k-1} + \\binom{n-1}{k}$. This completes the proof!"
+    }
+  ],
+  "fullProofHtml": "<p><strong>Theorem:</strong> For integers $1 \\leq k \\leq n$, $\\binom{n}{k} = \\binom{n-1}{k-1} + \\binom{n-1}{k}$.</p><p><strong>Proof (Storyline argument):</strong></p><p>Suppose we want to select a subset of size $k$ from a set $\\{1,\\dots,n\\}$. The total number of ways to do this is exactly $\\binom{n}{k}$.</p><p>Each subset $S\\subseteq [n]$ of size $k$ satisfies exactly one of the following: (a) $S$ contains $n$ (b) $S$ does not contain $n$. So by the addition rule, $\\binom{n}k=|A|+|B|$ where $A$ is set of subsets of $[n]$ of size $k$ that contain $n$, and $B$ is the set of such subsets that do not contain $n$. The collection $B$ is equal to the set of subsets of $[n-1]$ of size $k$ and therefore $|B|=\\binom{n-1}{k-1}$. The set $A$ is in bijection with the set of subsets of $n-1$ of size $k-1$, by removing the element $n$ from each element of $A$. So $|A|=\\binom{n-1}{k-1}$. Therefore, $\\binom{n}{k}=\\binom{n-1}{k-1}+\\binom{n-1}{k}$. $\\square$</p>"
+}
