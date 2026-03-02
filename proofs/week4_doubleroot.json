@@ -1,0 +1,41 @@
+{
+  "title": "Setting up and solving recurrence relations",
+  "steps": [
+    {
+      "prompt": "A path of length $1000$ meters needs to be tiled. You have two types of tiles: 1-meter tiles which come in 1 colour (red), and 2-meter tiles which come in 2 colours (blue and green). Let $T_n$ be the number of ways to tile a path of length $n$. Find a recurrence relation for $T_n$.",
+      "hint": "Do a case analysis based on the last tile used. What happens if the last tile is 1-meter long? What if it's 2-meters long?",
+      "reveal": "If the last tile is 1-meter long, then the last tile is coloured red and there are $T_{n-1}$ ways to finish the path. If the last tile is 2-meters long, then there are $2$ colour choices, and $T_{n-2}$ ways to finish. Thus, the recurrence relation is $T_n = T_{n-1} + 2T_{n-2}$."
+    },
+    {
+      "prompt": "We define $T_0 = 1$ ('use no tiles' being the 1 way to tile a path of length 0). What are $T_1$ and $T_2$?",
+      "hint": "We can only use a 1-meter tile when $n=1$, but for $T_2$ there are multiple options.",
+      "reveal": "$T_1 = 1$ (there is only 1 way to tile a 1-meter path: use the red tile). $T_2 = T_1+2T_0=3$ (use two red tiles, or one blue tile, or one green tile)."
+    },
+    {
+      "prompt": "What is the characteristic polynomial for $T_n = T_{n-1} + 2T_{n-2}$?",
+      "hint": "The characteristic polynomial of $R(n)=aR(n-1)+bR(n-2)$ is $x^2 - ax - b$.",
+      "reveal": "The characteristic polynomial is $x^2 - x - 2$."
+    },
+    {
+      "prompt": "Find the roots of the characteristic polynomial.",
+      "hint": "Factor the polynomial or use the quadratic formula.",
+      "reveal": "The polynomial factors as $(x-2)(x+1) = 0$, so the roots are $r_1 = 2$ and $r_2 = -1$."
+    },
+    {
+      "prompt": "Write the general form of the solution for this double root case.",
+      "hint": "For two distinct roots $r_1$ and $r_2$, the general solution is $T_n = c_1 r_1^n + c_2 r_2^n$.",
+      "reveal": "The general solution is $T_n = c_1 2^n + c_2 (-1)^n$."
+    },
+    {
+      "prompt": "Use the initial conditions to find $c_1$ and $c_2$.",
+      "hint": "Set up a system of two equations using $n=0$ ($T_0=1$) and $n=1$ ($T_1=1$).",
+      "reveal": "From $T_0 = 1$, we get $c_1 + c_2 = 1$.<br>From $T_1 = 1$, we get $2c_1 - c_2 = 1$.<br>Adding the equations gives $3c_1 = 2$, so $c_1 = \\frac{2}{3}$. Plugging this back in gives $c_2 = \\frac{1}{3}$."
+    },
+    {
+      "prompt": "Find $T_{1000}$.",
+      "hint": "Substitute $c_1$ and $c_2$ back into the general form.",
+      "reveal": "The closed-form solution is $T_n = \\frac{2}{3} 2^n + \\frac{1}{3} (-1)^n$."
+    }
+  ],
+  "fullProofHtml": "<p>We want to find a closed-form expression for the number of ways $T_n$ to tile a path of length $n$ using 1-colour 1-meter tiles and 2-colour 2-meter tiles.</p><p><strong>Recurrence Relation:</strong> $T_n = T_{n-1} + 2T_{n-2}$. Indeed, let $A$ denote the set of tilings of a path of length $n$, $B$ those tilings in $A$ ending in a tile of length 1 and $C$ those tilings in $A$ ending in a tile of length 2. Since $A=B\\cup C$ forms a partition of $A$, we find that $T_n=|A|=|B|+|C|$. Now $|B|=T_{n-1}$ (since in $B$, there is a single choice for the last tile and $T_{n-1}$ for the first $n-1$ tiles) and $|C|=2T_{n-2}$ (since there are now 2 choices for the last tile and $n-2$ tiles before the last tile). The initial conditions are $T_0 = 1$ and $T_1 = 1$.</p><p><strong>Characteristic polynomial and roots:</strong> The characteristic polynomial is $$x^2 - x - 2=(x-2)(x+1)$$, so the roots are $r_1 = 2$ and $r_2 = -1$.</p><p>Since the roots are distinct, the general solution is $T_n = c_1 2^n + c_2 (-1)^n$.</p><p><strong>Use initial conditions:</strong> From $T_0=0$ and $T_1=1$, we solve for $c_1,c_2$:</p><p>$T_0 = c_1 + c_2 = 1$<br>$T_1 = 2c_1 - c_2 = 1$</p><p>Adding the two equations yields $3c_1 = 2$, so $c_1 = \\frac{2}{3}$. Substituting this back into the first equation gives $c_2 = 1 - \\frac{2}{3} = \\frac{1}{3}$.</p><p><strong>Conclusion:</strong> The final closed-form solution is $$T_n = \\frac{2}{3} 2^n + \\frac{1}{3} (-1)^n.$$ and so $$T_{1000} = \\frac{2}{3} 2^{1000} + \\frac{1}{3}.$$</p>"
+}
