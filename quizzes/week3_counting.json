@@ -112,7 +112,7 @@
       "explanation": "First, fulfill the restriction by giving 1 penny to each of the 4 children. You now have $10 - 4 = 6$ identical pennies left to distribute freely among the 4 children. Using Stars-and-Bars with $n=6$ and $k=4$, we get $\\binom{6+4-1}{4-1} = \\binom{9}{3}$."
     },
     {
-      "text": "(+) When rolling five standard 6-sided dice, you record the outcome as a non-decreasing sequence (for example: 1, 1, 3, 4, 5). How many different outcomes are possible?",
+      "text": "When rolling five standard 6-sided dice, you record the outcome as a non-decreasing sequence (for example: 1, 1, 3, 4, 5). How many different outcomes are possible?",
       "choices": [
         "$\\binom{7}{5}$",
         "$6^5$",
