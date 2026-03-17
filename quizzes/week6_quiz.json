@@ -1,0 +1,116 @@
+{
+  "title": "Graph theory: basic question on material week 6",
+  "questions": [
+    {
+      "text": "Consider the complete graph on 5 vertices, $K_5$. How many distinct <em>paths</em> of length 4 are there in this graph?",
+      "choices": [
+        "$5!$",
+        "$5\\cdot 4^4$",
+        "$5^5$",
+        "$5^5/5!$"
+      ],
+      "correct": 0,
+      "explanation": "A path of length 4 visits exactly 5 distinct vertices. Since it's a complete graph, any sequence of 5 distinct vertices forms a valid path. The number of ways to order 5 vertices is $5! = 120$."
+    },
+    {
+      "text": "Let $T$ be a tree with exactly $n$ vertices. According to the Handshaking Lemma, what must be the sum of the degrees of all vertices in $T$?",
+      "choices": [
+        "$n-1$",
+        "$n$",
+        "$2n-2$",
+        "$2n$"
+      ],
+      "correct": 2,
+      "explanation": "A tree on $n$ vertices has exactly $n-1$ edges. By the Handshaking Lemma, the sum of all degrees is exactly twice the number of edges, which is $2(n-1) = 2n-2$."
+    },
+    {
+      "text": "The hypercube graph $Q_n$ has vertices representing all binary strings of length $n$, with edges between strings that differ in exactly one position. For which values of $n$ does $Q_n$ contain an Eulerian circuit?",
+      "choices": [
+        "All values of $n$",
+        "Only when $n$ is odd",
+        "Only when $n$ is even",
+        "No values of $n$"
+      ],
+      "correct": 2,
+      "explanation": "A graph has an Eulerian circuit if and only if it is connected and all vertices have an even degree. In $Q_n$, every vertex has a degree of exactly $n$ (you can flip any one of the $n$ bits to reach a neighbor). Therefore, $n$ must be even."
+    },
+    {
+      "text": "Suppose a connected graph $G$ has 10 vertices and 12 edges. Is $G$ a tree?",
+      "choices": [
+        "Yes, because it is connected.",
+        "Yes, because the number of edges is greater than the number of vertices.",
+        "No, because a tree on 10 vertices must have exactly 9 edges.",
+        "There is not enough information to determine this."
+      ],
+      "correct": 2,
+      "explanation": "A connected graph on $n$ vertices is a tree if and only if it has exactly $n-1$ edges. Since this graph has 12 edges (which is more than 9), it must contain cycles and is therefore not a tree."
+    },
+    {
+      "text": "Which of the following statements about walks, trails and paths is <strong>false</strong>?",
+      "choices": [
+        "Every path is also a trail.",
+        "Every trail is also a walk.",
+        "A closed trail of length $\\ge 1$ with no repeated vertices (other than start/end) is a cycle.",
+        "If there is a walk between $u$ and $v$, there is a trail between them.",
+        "All statements are true."
+      ],
+      "correct": 4,
+      "explanation": "Path and trails are walks without repeated vertices respectively edges. There is no closed trail of length 1 or 2 since edges cannot be repeated. We proved in the lectures that a walk can be turned into a path, which is then also a trail. Thus, all statements are true."
+    },
+    {
+      "text": "Let $G$ be the path graph $P_3$ with vertex set $V = \\{1, 2, 3\\}$ and edge set $E = \\{\\{1, 2\\}, \\{2, 3\\}\\}$. Which of the following is a subgraph of $G$ but <strong>NOT</strong> an induced subgraph?",
+      "choices": [
+        "The graph with vertices $\\{1, 3\\}$ and no edges.",
+        "The graph with vertices $\\{1, 2\\}$ and edge $\\{1, 2\\}$.",
+        "The graph with vertices $\\{1, 2, 3\\}$ and only the edge $\\{1, 2\\}$.",
+        "The graph with vertices $\\{2\\}$ and no edges."
+      ],
+      "correct": 2,
+      "explanation": "An induced subgraph $G[V']$ must contain *all* edges from the original graph $G$ that have both endpoints in $V'$. If we select the vertex set $V' = \\{1, 2, 3\\}$, the induced subgraph must be the original graph itself (2 edges). A graph with these 3 vertices but only 1 edge is a subgraph, but not an induced subgraph."
+    },
+    {
+      "text": "What is the diameter of the cycle graph $C_{10}$?",
+      "choices": [
+        "4",
+        "5",
+        "9",
+        "10"
+      ],
+      "correct": 1,
+      "explanation": "The diameter is the maximum shortest-path distance between any two vertices in the graph. In a cycle $C_n$, the two furthest vertices are exactly opposite each other, which gives a distance of $\\lfloor n/2 \\rfloor$. For $C_{10}$, the diameter is $10/2 = 5$."
+    },
+    {
+      "text": "Which of the following graphs is <strong>NOT</strong> bipartite?",
+      "choices": [
+        "The cycle graph $C_{100}$",
+        "The path graph $P_{15}$",
+        "The cycle graph $C_{15}$",
+        "The star graph $K_{1, 8}$"
+      ],
+      "correct": 2,
+      "explanation": "Kőnig's Theorem states that a graph is bipartite if and only if it contains no odd cycles. The graph $C_{15}$ is an odd cycle (length 15), so it cannot be bipartite. Trees (like paths and stars) and even cycles are always bipartite."
+    },
+    {
+      "text": "Let $G$ be a simple graph on 8 vertices. According to Dirac's Theorem, what is the minimum degree required to guarantee that $G$ has a Hamiltonian cycle?",
+      "choices": [
+        "2",
+        "4",
+        "7",
+        "8"
+      ],
+      "correct": 1,
+      "explanation": "Dirac's Theorem guarantees a Hamiltonian cycle if every vertex has a degree of at least $n/2$. Since $n = 8$, the minimum degree required is $8/2 = 4$."
+    },
+    {
+      "text": "Let $T$ be a tree with 12 vertices. What is the <strong>minimum</strong> possible number of leaves (vertices of degree 1) in $T$?",
+      "choices": [
+        "1",
+        "2",
+        "11",
+        "12"
+      ],
+      "correct": 1,
+      "explanation": "Every tree with at least 2 vertices must have at least 2 leaves (which occurs when the tree is just a single long path, like $P_{12}$). It is impossible to have a tree with only 1 leaf, as that would imply a cycle or a disconnected graph."
+    }
+  ]
+}
