@@ -1,0 +1,46 @@
+{
+  "title": "Dirac's theorem on Hamiltonian cycles",
+  "steps": [
+    {   
+      "prompt": "What is the statement of Dirac's theorem?",
+      "hint": "There is a condition on the number of vertices and on the degrees.",
+      "reveal": "Any graph $G$ on $n \\ge 3$ vertices for which each vertex $v$ has degree $\\ge n/2$ contains a Hamiltonian cycle."
+      },
+    {
+      "prompt": "Let $n\\geq 3$. We proceed by contradiction. We may start from a graph $G=(V,E)$ on $n$ vertices without a Hamiltonian cycle such that each vertex has degree at least $n/2$ and such that $G+e$ is Hamiltonian for any missing edge $e\\not\\in E$. Why is this the case?",
+      "hint": "What happens if you keep adding missing edges to a counterexample $G$?",
+      "reveal": "The proof by contradiction provides such a graph without the last condition. We keep adding missing edges as long as the resulting graph still has no Hamiltonian cycle, so the other conditions will remain. This must terminate since there are at most $\\binom{n}{2}$ edges to add."
+    },
+    {
+      "prompt": "Eventually, we end up with an edge-maximal graph $G$ without a Hamiltonian cycle, which means that adding any missing edge creates a Hamiltonian cycle. This is the graph we will work with for the rest of the proof. How can conclude from this that $G$ has a Hamilonian path, a path $v_1,\\dots,v_n$ (visiting each vertex exactly once)?",
+      "hint": "Is there always a missing edge $e$? What happens to the Hamiltonian cycle in $G + e$ if you remove the edge $e$?",
+      "reveal": "We know that $G\\neq K_n$ because otherwise $G$ would be Hamiltonian. So there is an edge $e\\not\\in E$. The Hamiltonian cycle in $G+e$ must use this edge so removing it leaves a Hamiltonian path in $G$."
+    },
+    {
+      "prompt": "Let's denote the vertices of this path in order as $v_1, v_2, \\dots, v_n$ with $e=\\{v_1, v_n\\}$. What part of the assumption of $G$ are we going to use to turn this into a Hamiltonian cycle?",
+      "hint": "We know that all degrees are at least $n/2$. For which vertices should we use this?",
+      "reveal": "We will use the degrees of $v_1$ and $v_n$ to find two edges that we can use for the cycle ($v_{j+1} v_1$ and $v_jv_n$ for some $j$)."
+    },
+    {
+      "prompt": "Define the sets $S = \\{i \\in [n-1] : \\{v_1, v_{i+1}\\} \\in E\\}$ and $T = \\{i \\in [n-1] : \\{v_i, v_n\\} \\in E\\}$. What are the minimum sizes of $S$ and $T$?",
+      "hint": "The size of $S$ is the number of neighbors of $v_1$, and the size of $T$ is the number of neighbors of $v_n$. Use the minimum degree condition.",
+      "reveal": "The size of $S$ is exactly the degree of $v_1$, and the size of $T$ is exactly the degree of $v_n$. By our initial condition, $|S| = \\deg(v_1) \\ge n/2$ and $|T| = \\deg(v_n) \\ge n/2$."
+    },
+    {
+      "prompt": "Both $S$ and $T$ are subsets of the index set $\\{1, 2, \\dots, n-1\\}$. Use this fact to show that $S$ and $T$ must have at least one element in common (i.e., $S \\cap T \\neq \\emptyset$).",
+      "hint": "Use inclusion-exclusion or pigeonhole.",
+      "reveal": "Since $S \\cup T \\subseteq \\{1, \\dots, n-1\\}$, its maximum size is $n-1$. So $|S \\cap T| = |S| + |T| - |S \\cup T| \\ge n/2 + n/2 - (n-1) = 1$. Thus, there exists some index $j \\in S \\cap T$."
+    },
+    {
+      "prompt": "Because $j \\in S \\cap T$, we know the edges $\\{v_1, v_{j+1}\\}$ and $\\{v_j, v_n\\}$ both exist in $G$. If we want to build a cycle using these two new 'crossing' edges along with the rest of the path, which edge from the original path $v_1, v_2, \\dots, v_n$ must we remove so that every vertex has degree exactly 2 in our new cycle?",
+      "hint": "Look at the vertices involved in the new edges: $v_1$ connects to $v_{j+1}$, and $v_n$ connects to $v_j$. Which edge originally connected the two halves of the path?",
+      "reveal": "We must remove the edge $\\{v_j, v_{j+1}\\}$. By doing this, we break the original path into two separate segments: $v_1 \\dots v_j$ and $v_{j+1} \\dots v_n$, which we can now reconnect using our two new edges."
+    },
+    {
+      "prompt": "What is the Hamiltonian cycle we have constructed? Conclude the proof.",
+      "hint": "Write out the sequence of vertices for the final Hamiltonian cycle in $G$.",
+      "reveal": "The sequence $v_1, v_{j+1}, v_{j+2}, \\dots, v_n, v_j, v_{j-1}, \\dots, v_1$ forms a Hamiltonian cycle entirely contained within $G$. This contradicts our assumption that $G$ is not Hamiltonian."
+    }
+    ],
+  "fullProofHtml": "See the lecture notes for the full proof."
+}
